@@ -1,0 +1,157 @@
+<div class="content">
+    <div class="container-fluid bg-white">
+        <div class="bg-white" fxLayout="row" fxLayout.xs="column">
+            <div class="col-md-12 col-lg-12 col-xl-12">
+                <mat-card class="bg-white hv-100 text-dark">
+                    <div fxLayout="row" fxLayoutAlign="space-between center"
+                        class="card-header bg-white card-header-primary">
+                        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                            <mat-form-field appearance="outline">
+                                <mat-label class="text-dark">Offre</mat-label>
+                                <input matInput  [(ngModel)]="searchData.offre"
+                                    placeholder="Rechercher ici!">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label class="text-dark select-field">Groupe Radius</mat-label>
+                                <mat-select [(ngModel)]="searchData.groupeRadiusLibelle" name="groupeRadiusLibelle" placeholder="Veuillez choisir un groupe radius">
+                                    <mat-option [value]="''">Aucun élément</mat-option>
+                                    <mat-option *ngFor="let item of listeGroupeRadius" [value]="item.key">{{item.key}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <mat-form-field appearance="outline">
+                                <mat-label class="text-dark">Type offre</mat-label>
+                                <mat-select [(ngModel)]="searchData.typeOffreId" name="typeOffreId" placeholder="Veuillez choisir un type offre">
+                                    <mat-option [value]="''">Aucun élément</mat-option>
+                                    <mat-option *ngFor="let item of listeTypeOffre" [value]="item.id">{{item.libelle}}</mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                            <!-- <mat-form-field appearance="outline">
+                                <mat-label class="text-dark">Localisation</mat-label>
+                                <mat-select [(ngModel)]="searchData.localisationId" name="localisationId" placeholder="Veuillez choisir une localisation">
+                                    <mat-option [value]="''">Aucun élément</mat-option>
+                                    <mat-option *ngFor="let item of listeLocalisation" [value]="item.id">{{item.libelle}}</mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                        </div>
+
+                        <div fxLayout="row" fxlayoutalign="space-between center">
+                            <mat-icon (click)="rechercher()" class="focus-cursor mx-3" aria-hidden="false"
+                                title="Rechercher" [inline]="true" aria-label="Example search icon">
+                                search</mat-icon>
+                            <mat-icon *ngIf="testMenu('CREER_OFFRE')" class="focus-cursor" (click)="openModal()" aria-hidden="false"
+                                title="Nouveau" [inline]="true" aria-label="Example create_new_folder icon">
+                                create_new_folder
+                            </mat-icon>
+                        </div>
+                    </div>
+                    <mat-card-content class="bg-white">
+                        <div class="table-container">
+                          <mat-accordion>
+                            <mat-expansion-panel *ngFor="let item of listeOffres; let i = index;" (opened)="item.opened = true"
+                                (closed)="item.opened = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title class="flex-basis">
+                                        {{item.offre}}
+                                </mat-panel-title>
+
+                                <mat-panel-description fxLayoutGap="10px" >
+                                    <!-- <mat-icon *ngIf="testMenu('MODIFIER_OFFRE')" (click)="openModal(item)" class="focus-cursor"  
+                                        aria-hidden="false" title="modifier" [inline]="true"
+                                        aria-label="Example mode icon">
+                                        mode
+                                    </mat-icon> -->
+                                    <mat-icon *ngIf="testMenu('SUPPRIMER_OFFRE')" class="focus-cursor" (click)="askBeforeDelete(item)"
+                                        aria-hidden="false" title="Supprimer" [inline]="true"
+                                        aria-label="Example delete_forever icon">delete_forever</mat-icon>
+                                  </mat-panel-description>
+
+                            </mat-expansion-panel-header>
+                            <table mat-table [dataSource]="item.datasGroupeRadius"
+                                class="mat-tablo mat-elevation-z8 bg-white text-dark">
+                                <!-- num Column -->
+                                <ng-container matColumnDef="num">
+                                    <th class="td-small" mat-header-cell *matHeaderCellDef> No. </th>
+                                    <td class="td-small" mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </td>
+                                </ng-container>
+
+                                 <!-- <ng-container matColumnDef="code">
+                                    <th mat-header-cell *matHeaderCellDef> Code </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+                                </ng-container> -->
+
+                                <!-- libelle Column -->
+                                <ng-container matColumnDef="libelle">
+                                    <th mat-header-cell *matHeaderCellDef> Libellé </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.groupeRadiusLibelle}} </td>
+                                </ng-container>
+
+                                <!-- typeOffreCode Column -->
+                                <ng-container matColumnDef="typeOffreCode">
+                                    <th mat-header-cell *matHeaderCellDef> Type offre code </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.typeOffreCode}} </td>
+                                </ng-container>
+                                
+                                <!-- typeOffreLibelle Column -->
+                                <!-- <ng-container matColumnDef="typeOffreLibelle">
+                                    <th mat-header-cell *matHeaderCellDef> Offre Libellé </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.typeOffreLibelle}} </td>
+                                </ng-container> -->
+
+                                <!-- localisationLibelle Column -->
+                                <ng-container matColumnDef="localisationLibelle">
+                                    <th mat-header-cell *matHeaderCellDef> Localisation </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.localisationLibelle}} </td>
+                                </ng-container>
+
+                                <!-- type offre Column -->
+                                <!-- <ng-container matColumnDef="typeOffreLibelle">
+                                    <th mat-header-cell *matHeaderCellDef> Type offre </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.typeOffreLibelle}} </td>
+                                </ng-container> -->
+                                <!-- option Column -->
+                                <ng-container matColumnDef="options">
+                                    <th mat-header-cell *matHeaderCellDef> Option </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <div fxLayout="row" fxLayoutAlign="space-around center">
+                                            <mat-icon *ngIf="testMenu('MODIFIER_OFFRE')"  class="focus-cursor" (click)="openModal(item, element)"
+                                                aria-hidden="false" title="Modifier" [inline]="true"
+                                                aria-label="Example mode icon">mode
+                                            </mat-icon>
+                                            <mat-icon *ngIf="testMenu('SUPPRIMER_OFFRE')" class="focus-cursor" (click)="askBeforeDelete(item)"
+                                                aria-hidden="false" title="Supprimer" [inline]="true"
+                                                aria-label="Example delete_forever icon">delete_forever</mat-icon>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="groupeRadiusArrayColumn"></tr>
+                                <tr mat-row *matRowDef="let row; columns: groupeRadiusArrayColumn;"></tr>
+                                <!-- <tr mat-header-row *matHeaderRowDef="radiusArrayColumn"></tr>
+                                <tr mat-row *matRowDef="let row; columns: radiusArrayColumn;"></tr> -->
+                                <!-- <tr mat-footer-row  *ngIf="listeRessourcesDisruptive.length==0">
+                                    <td colspan="28">Aucune donnée</td>
+                                </tr> -->
+                            </table>
+                            <div *ngIf="item.children && item.children.length==0" class="w-100 text-center py-3">
+                                Aucune donnée
+                            </div>
+                            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageIndex]="page.index"
+                                [pageSize]="page.size" [length]="page.total" (page)="paginationChange($event)"
+                                showFirstLastButtons>
+                            </mat-paginator> -->
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                        <div *ngIf="!page.total || page.total==0" class="w-100 text-center py-3">
+                            Aucune donnée
+                        </div>
+                            <mat-paginator *ngIf="page.total && page.total>0" [pageSizeOptions]="[5, 10, 20]" [pageIndex]="page.index"
+                                [pageSize]="page.size" [length]="page.total" (page)="paginationChange($event)"
+                                showFirstLastButtons>
+                            </mat-paginator>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

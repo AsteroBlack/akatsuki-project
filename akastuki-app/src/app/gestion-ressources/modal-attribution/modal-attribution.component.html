@@ -1,0 +1,330 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>Attribution ressources</h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+
+
+
+<form [formGroup]="formModal" (ngSubmit)="onSearchClient(formModal.value)" class="form" >
+    <div class="row">
+        <mat-form-field appearance="standard" fxFlex="30" style="padding: 5px;">
+            <mat-label>Type attribution</mat-label>
+                <mat-select formControlName="isAttributionEnMasse" name="isAttributionEnMasse">
+                    <mat-option [value]="''">Type attribution</mat-option>
+                    <mat-option *ngFor="let item of typeAttribution" [value]="item.valeur">{{item.libelle}}</mat-option>
+                </mat-select>
+        </mat-form-field>
+    </div>
+    <div *ngIf="!formModal.value.isAttributionEnMasse">
+        <ul class="progressbar">
+            <li [class.active]="activatedStep == 0">Informations client</li>
+            <li [class.active]="activatedStep == 1">Ressources disponibles</li>
+            <li [class.active]="activatedStep == 2">Résumé</li>
+        </ul>
+        <div class="col col-md-12" *ngIf="activatedStep == 0" style="min-height: 300px; max-height: 600px;overflow:auto">
+            <div class="row" >
+                <mat-form-field appearance="standard" fxFlex="15" style="padding: 5px;">
+                    <mat-label>Nouveau client</mat-label>
+                        <mat-select formControlName="isNouveauClient" name="isNouveauClient">
+                            <mat-option [value]="''">Nouveau client?</mat-option>
+                            <mat-option *ngFor="let item of options" [value]="item.valeur">{{item.libelle}}</mat-option>
+                        </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="standard" fxFlex="40" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                    <mat-label>Login ou nd</mat-label>
+                    <input matInput formControlName="searchClient" name="searchClient">
+                </mat-form-field>
+        
+                <!-- <mat-form-field appearance="standard" fxFlex="20" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                    <mat-label>Techno</mat-label>
+                    <mat-select formControlName="technoId" name="technoId">
+                        <mat-option [value]="''">Veuillez choisir techno</mat-option>
+                        <mat-option *ngFor="let item of listeTechno" [value]="item.id">{{item.libelle}}</mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+    
+    
+    
+                <mat-form-field appearance="standard" fxFlex="45" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Login </mat-label>
+                    <input matInput formControlName="clientLoginClient" name="clientLoginClient">
+                    <!-- <mat-error *ngIf="formModal.controls.clientLoginClient.invalid">veuillez saisir Login</mat-error> -->
+                </mat-form-field>
+    
+                <mat-form-field appearance="standard" fxFlex="38" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Nd<span style="color: red;">*</span></mat-label>
+                    <input matInput formControlName="clientNdClient" name="clientNdClient">
+                    <!-- <mat-error *ngIf="formModal.controls.clientNdClient.invalid">veuillez saisir Nd</mat-error> -->
+
+                </mat-form-field>
+    
+                <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Nom<span style="color: red;">*</span></mat-label>
+                    <input matInput formControlName="clientNomClient" name="clientNomClient">
+                    <!-- <mat-error *ngIf="formModal.controls.clientNomClient.invalid">veuillez saisir Nom</mat-error> -->
+                </mat-form-field>
+    
+                <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Sn</mat-label>
+                    <input matInput formControlName="clientSnClient" name="clientSnClient">
+                </mat-form-field>
+    
+    
+                <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Type client<span style="color: red;">*</span></mat-label>
+                    <mat-select formControlName="clientTypeClientId" name="clientTypeClientId">
+                        <mat-option [value]="''">Veuillez choisir type client</mat-option>
+                        <mat-option *ngFor="let item of listeParamTypeClient" [value]="item.id">{{item.libelle}}</mat-option>
+                    </mat-select>
+                    <!-- <mat-error *ngIf="formModal.controls.clientTypeClientId.invalid">veuillez saisir Type client</mat-error> -->
+                </mat-form-field>
+    
+                <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Mac<span style="color: red;">*</span></mat-label>
+                    <input matInput formControlName="clientMacClient" name="clientMacClient">
+                    <!-- <mat-error *ngIf="formModal.controls.clientMacClient.invalid">veuillez saisir Mac</mat-error> -->
+                </mat-form-field>
+    
+                <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Mask</mat-label>
+                    <input matInput formControlName="clientMaskClient" name="clientMaskClient">
+                </mat-form-field>
+    
+                <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Contract billing</mat-label>
+                    <input matInput formControlName="clientContratBiling" name="clientContratBiling">
+                </mat-form-field>
+    
+                <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Vlan</mat-label>
+                    <input matInput formControlName="clientVlanClient" name="clientVlanClient">
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Ip</mat-label>
+                    <input matInput formControlName="clientIpClient" name="clientIpClient">
+                </mat-form-field>
+    
+                <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Code offre</mat-label>
+                    <input matInput formControlName="clientOffreCodeClient" name="clientOffreCodeClient">
+                </mat-form-field>
+    
+                <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Libellé offre</mat-label>
+                    <input matInput formControlName="clientOffreLibClient" name="clientOffreLibClient">
+                </mat-form-field>
+    
+                <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                    <mat-label>Localisation</mat-label>
+                    <input matInput formControlName="clientLocalisationClient" name="clientLocalisationClient">
+                </mat-form-field>
+         
+    
+    
+    
+    
+    
+    
+    
+                            <!-- <button mat-raised-button   type="submit" color="warn" style="height: 30px; margin-top: 30px;" (click)="onSearchClient()">Rechercher</button> -->
+                            <button mat-raised-button  [disabled]="!formModal.valid && formModal.value.isNouveauClient"  type="submit" color="warn" style="height: 30px; margin-top: 30px;">Rechercher</button>
+
+            </div>
+        </div>
+        <div class="col col-md-12" *ngIf="activatedStep == 1" style="min-height: 300px; max-height: 600px;overflow:auto">
+            <div class="row" >
+               
+                <mat-form-field appearance="standard" fxFlex="40" style="padding: 5px;">
+                    <mat-label>Pb</mat-label>
+                    <input matInput formControlName="pb" name="pb">
+                </mat-form-field>
+                <mat-form-field appearance="standard" fxFlex="20" style="padding: 5px;">
+                    <mat-label>Techno</mat-label>
+                    <mat-select formControlName="technoId" name="technoId">
+                        <mat-option [value]="''">Veuillez choisir techno</mat-option>
+                        <mat-option *ngFor="let item of listeTechno" [value]="item.id">{{item.libelle}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-raised-button   type="button" color="warn" style="height: 30px; margin-top: 30px;" (click)="onSearchRessourcesDisponibles()">Rechercher</button>
+    
+            </div>
+    
+    
+                            
+            <div class="table-container">
+    
+                <table mat-table [dataSource]="listeRessourcesDisponibles"
+                    class="mat-tablo mat-elevation-z8 bg-white text-dark" style="color: red;">
+                    <!-- num Column -->
+                    <!-- <ng-container matColumnDef="num">
+                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </td>
+                    </ng-container> -->
+                    <!-- libelle Column -->
+                    <ng-container matColumnDef="cluster">
+                        <th mat-header-cell *matHeaderCellDef> Pb </th>
+                        <td mat-cell *matCellDef="let element"> {{element.cluster}}/{{element.pbNom}} </td>
+                    </ng-container>
+    
+                    <!-- ville Column -->
+                    <ng-container matColumnDef="pbNom">
+                        <th mat-header-cell *matHeaderCellDef> Pb nom </th>
+                        <td mat-cell *matCellDef="let element"> {{element.pbNom}} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="ports">
+                        <th mat-header-cell *matHeaderCellDef> Ports </th>
+                        <td mat-cell *matCellDef="let element"> {{element.ports}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="pbNomTiroir">
+                        <th mat-header-cell *matHeaderCellDef> Tiroir </th>
+                        <td mat-cell *matCellDef="let element"> {{element.pbNomTiroir}} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="pbCoupleur">
+                        <th mat-header-cell *matHeaderCellDef> Coupleur </th>
+                        <td mat-cell *matCellDef="let element"> {{element.pbCoupleur}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="paramColorLibelle">
+                        <th mat-header-cell *matHeaderCellDef> Brin </th>
+                        <td mat-cell *matCellDef="let element"> {{element.paramColorLibelle}} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="options">
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <td mat-cell *matCellDef="let element">
+                            <input type="radio" name="same" [checked]="element.isSelected" (click)="onSelectResource(element)">
+                        </td>
+                    </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="RessourceArrayColumn"></tr>
+                    <tr mat-row *matRowDef="let row; columns: RessourceArrayColumn;"></tr>
+                </table>
+                <div *ngIf="listeRessourcesDisponibles && listeRessourcesDisponibles.length==0" class="w-100 text-center py-3">
+                    Aucune donnée
+                </div>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageIndex]="page.index"
+                    [pageSize]="page.size" [length]="totalItems" (page)="paginationChange($event)"
+                    showFirstLastButtons></mat-paginator>
+            </div>
+    
+    
+            
+        </div>
+        <div class="col col-md-12" *ngIf="activatedStep == 2" style="min-height: 300px; max-height: 600px;overflow:auto">
+            <div class="row" >
+                    <div class="col-md-6">
+                        <caption>TRANSPORT</caption>
+                        <table  class="table" style="background: black;">
+                            <thead colspan="2">
+                               
+                            </thead>
+                            <body>
+                                <tr style="width:100%">
+                                    <td>PB</td>
+                                    <td>{{selectedRessource?.cluster}}/{{selectedRessource?.pbNom}} </td>
+                                    
+                                </tr>
+                                <tr>
+                                 <td>PORT</td>
+                                 <td>{{selectedRessource?.ports}}</td>
+                                 
+                             </tr>
+                             <tr>
+                                 <td>TIROIR</td>
+                                 <td>{{selectedRessource?.pdNomTiroir}}</td>
+                                 
+                             </tr>
+                          
+                             <tr>
+                                 <td>Plot Transport</td>
+                                 <td>{{selectedRessource?.pdPlot}}</td>
+                                 
+                             </tr>
+                             <tr>
+                                <td>Coupleur</td>
+                                <td>{{selectedRessource?.pdCoupleur}}</td>
+                                
+                            </tr>
+                            </body>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <caption>DISTRIBUTION</caption>
+                   <table class="table">
+                       <body>
+                           <tr>
+                            <td>Tiroir Distribution</td>
+                            <td>{{selectedRessource?.pbNomTiroir}}</td>
+
+                            
+                        </tr>
+                        <tr>
+                            <td>Coupleur Distribution</td>
+                            <td>{{selectedRessource?.pbCoupleur}}</td>
+
+                            
+                        </tr>
+                        <tr>
+                            <td>Plot Distribution</td>
+                            <td>{{selectedRessource?.pbPlot}}</td>
+
+                            
+                        </tr>
+                        <tr>
+                            <td>BRIN</td>
+                            <td>{{selectedRessource?.paramColorLibelle}}</td>
+
+                            
+                        </tr>
+                       </body>
+                   </table>
+                    </div>
+                    
+    
+                   
+    
+    
+    
+            </div>
+        </div>
+    </div>
+    <div *ngIf="formModal.value.isAttributionEnMasse">
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <!-- <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Techno</mat-label>
+                <mat-select formControlName="techno">
+                    <mat-option *ngFor="let item of listeTechno" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            <div class="form-group col-md-12 col-lg-12 row mb-0 mt-3 pr-0">
+                <label for="file-upload" class="custom-file-upload col-sm-12 col-form-label">
+                   <i class="fa fa-cloud-upload"></i> {{nomFichier}}
+                 </label>
+                 <input id="file-upload" (change)="processFile($event)" type="file" 
+                 accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+             </div>
+        </div>
+    </div>
+    
+</form>
+
+    
+
+
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <!-- <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button> -->
+    <button mat-raised-button *ngIf="!formModal.value.isAttributionEnMasse" [class.invisible]="activatedStep ==0"  color="warn" (click)="onPrevStep()">Précédent</button>
+    <button mat-raised-button *ngIf="formModal.value.isAttributionEnMasse" [class.invisible]="true"  color="warn">null</button>
+
+    <button  class="pull-right" mat-raised-button color="primary" *ngIf="!formModal.value.isAttributionEnMasse && activatedStep ==1 && selectedRessource.id"  (click)="onNextStep()" cdkFocusInitial>Suivant</button>
+    <button type="submit" mat-raised-button color="primary" *ngIf="!formModal.value.isAttributionEnMasse && activatedStep ==2" (click)="onSubmit(formModal.value)" cdkFocusInitial>Valider</button>
+    <button type="submit" mat-raised-button color="primary" *ngIf="formModal.value.isAttributionEnMasse" (click)="onSubmitAttributionEnMasse(formModal.value)" cdkFocusInitial>Valider</button>
+
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>
+
+<!-- ATTRIBUER_RESSOURCES -->

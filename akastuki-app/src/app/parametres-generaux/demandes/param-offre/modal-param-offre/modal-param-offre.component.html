@@ -1,0 +1,48 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>Offre</h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="formModal" (ngSubmit)="onSubmit(formModal.value)" class="form">
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Code</mat-label>
+                <input matInput formControlName="code" name="code">
+                <mat-error *ngIf="formModal.controls.code.invalid">veuillez saisir le code</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Libelle</mat-label>
+                <input matInput formControlName="libelle" name="libelle">
+                <mat-error *ngIf="formModal.controls.libelle.invalid">veuillez saisir le libelle</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Brand Index</mat-label>
+                <input matInput formControlName="brandIndex" name="brandIndex">
+                <mat-error *ngIf="formModal.controls.brandIndex.invalid">veuillez saisir le brandIndex</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Service classe</mat-label>
+                <input matInput formControlName="serviceClass" name="serviceClass">
+                <mat-error *ngIf="formModal.controls.serviceClass.invalid">veuillez saisir le service classe</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Débit</mat-label>
+                <input matInput formControlName="debit" name="debit">
+                <mat-error *ngIf="formModal.controls.debit.invalid">veuillez saisir le debit</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Type Formule</mat-label>
+                <mat-select formControlName="typeFormuleId" name="typeFormuleId" placeholder="Veuillez choisir un type formule">
+                    <mat-option *ngFor="let item of listeFormules" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formModal.controls.typeFormuleId.invalid">veuillez saisir le libelle</mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-Modules fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" class="button"
+    [disabled]="!formModal.valid" (click)="onSubmit(formModal.value)">Valider</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

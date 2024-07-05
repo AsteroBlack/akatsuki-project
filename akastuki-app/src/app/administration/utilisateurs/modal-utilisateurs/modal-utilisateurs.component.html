@@ -1,0 +1,64 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>Formulaire utilisateurs </h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="formModal" (ngSubmit)="onSubmit(formModal.value)" class="form">
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Matricule</mat-label>
+                <input matInput formControlName="matricule" name="matricule">
+                <mat-error *ngIf="formModal.controls.matricule.invalid">veuillez saisir le matricule</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Nom</mat-label>
+                <input matInput formControlName="nom" name="nom">
+                <mat-error *ngIf="formModal.controls.nom.invalid">veuillez saisir le nom</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Prenoms</mat-label>
+                <input matInput formControlName="prenom" name="prenom">
+                <mat-error *ngIf="formModal.controls.prenom.invalid">veuillez saisir le prenom</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Login</mat-label>
+                <input matInput formControlName="login" name="login">
+                <mat-error *ngIf="formModal.controls.login.invalid">veuillez saisir le login</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" name="email">
+                <mat-error *ngIf="formModal.controls.email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Contact</mat-label>
+                <input matInput formControlName="contact" name="contact" mask="00 00 00 00 00">
+                <mat-error *ngIf="formModal.controls.contact.invalid" >Veuillez saisir le contact</mat-error>
+            </mat-form-field>
+            <!-- <mat-form-field *ngIf="!formModal.value.id" appearance="standard" fxFlex="45"> -->
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Mot de passe</mat-label>
+                <input matInput type="password" formControlName="password" name="password">
+                <mat-error *ngIf="formModal.controls.password.invalid">Veuillez saisir le mot de passe</mat-error>
+            </mat-form-field>
+            <!-- <mat-form-field *ngIf="!formModal.value.id" appearance="standard" fxFlex="45"> -->
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Confirmer Mot de passe</mat-label>
+                <input matInput type="password" formControlName="confirmPassword" name="confirmPassword">
+                <mat-error *ngIf="formModal.controls.confirmPassword.errors?.equalTo">Veuillez saisir le mot de passe</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-select formControlName="roleId" multiple="false" placeholder="Veuillez choisir roles">
+                    <mat-option *ngFor="let item of listeRoles" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formModal.controls.roleId.invalid">veuillez saisir le rôle</mat-error>
+            </mat-form-field>
+          
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <button type="submit" mat-raised-button color="primary" (click)="onSubmit(formModal.value)">Valider</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

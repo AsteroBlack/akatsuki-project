@@ -1,0 +1,22 @@
+<div>
+  <div class="content">
+    <div class="head">
+      <h1>{{ commandeDetails.libelle }}</h1>
+      <h3 [ngClass]="commandeDetails.status">{{ commandeDetails.status }}</h3>
+    </div>
+    <div class="body">
+      <table>
+        <tr>
+          <th>Requête :</th>
+          <td>
+            <pre id="json">{{ showResponseValue() }}</pre>
+          </td>
+        </tr>
+        <tr>
+          <th>Réponse :</th>
+          <td><pre>{{ convertObjectToString(commandeDetails.responseValue)}}</pre></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

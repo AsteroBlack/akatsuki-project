@@ -1,0 +1,45 @@
+.btn-back {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.btn-back:hover{
+  color: #ff9000 ;
+}
+
+.content {
+  margin-top: 15px;
+
+  .head {
+    h1 {
+      margin-bottom: 5px;
+    }
+
+    h3.SUCCESS {
+      color: #32fc72;
+    }
+
+    h3.ERROR {
+      color: #fe3c3c;
+    }
+
+    h3.INIT {
+      color: #7152f9;
+    }
+  }
+
+  .body {
+    margin-top: 10px;
+
+    th {
+      min-width: 80px;
+      vertical-align: top;
+    }
+
+    pre {
+      color: #fff;
+    }
+  }
+}

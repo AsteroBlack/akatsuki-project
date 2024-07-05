@@ -1,0 +1,102 @@
+<div class="table-container">
+  <reporting-chart-loader *ngIf="loading"></reporting-chart-loader>
+  <table
+    mat-table
+    [dataSource]="commandesDataSource"
+    class="mat-tablo mat-elevation-z8 bg-white text-dark"
+  >
+    <ng-container matColumnDef="commande">
+      <th class="td-small" mat-header-cell *matHeaderCellDef>Commandes</th>
+      <td class="td-small" mat-cell *matCellDef="let commande">
+        <div
+          class="row column"
+          [ngClass]="showCommande(commande) ? 'row-open' : ''"
+          fxLayoutAlign="space-between"
+        >
+          <div>
+            <mat-icon
+              class="focus-cursor"
+              (click)="toggleVisibilityCommande(commande)"
+              >{{
+                showCommande(commande) ? "arrow_drop_down" : "arrow_right"
+              }}</mat-icon
+            ><br />
+            <b>Libellé: </b> {{ commande.libelle }} <br />
+            <b>Date début: </b> {{ commande.date_debut }} <br />
+            <b>Date fin: </b> {{ commande.date_fin }} <br />
+            <b>Référence: </b> {{ commande.reference }} <br />
+            <b>Status: </b> {{ commande.status }} <br />
+          </div>
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+              <mat-icon
+                class="focus-cursor details-icon"
+                (click)="showCommandeDetails(commande)"
+                aria-hidden="false"
+                title="Modifier"
+                [inline]="true"
+                >view_timeline</mat-icon
+              >
+            </div>
+        </div>
+        <div class="sub-table-container row" *ngIf="showCommande(commande)">
+          <table class="subtable mat-tablo mat-elevation-z8 bg-white text-dark">
+            <thead>
+              <tr>
+                <th class="sub-table-title" colspan="2">Requête</th>
+              </tr>
+              <tr>
+                <th>Clé</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let requestParam of commande.requestValue.parameters">
+                <td>{{ requestParam.key }}</td>
+                <td>{{ requestParam.value }}</td>
+              </tr>
+              <tr *ngIf="!checkCommandeHaveRequests(commande)">
+                <td class="center" colspan="2">Aucune donnée</td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="subtable mat-tablo mat-elevation-z8 bg-white text-dark">
+            <thead>
+              <tr>
+                <th class="sub-table-title" colspan="2">Réponse</th>
+              </tr>
+              <tr>
+                <th *ngIf="commande.status== 'SUCCESS'">Clé</th>
+                <th *ngIf="commande.status== 'SUCCESS'">Value</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="commande.status== 'SUCCESS'">
+              <tr
+                *ngFor="let responseParam of commande.responseValue.parameters"
+              >
+                <td>{{ responseParam.key }}</td>
+                <td>{{ responseParam.value }}</td>
+              </tr>
+              <tr *ngIf="!checkCommandeHaveResponses(commande)">
+                <td class="center" colspan="2">Aucune donnée</td>
+              </tr>
+            </tbody>
+
+            <tbody *ngIf="commande.status == 'ERROR'">
+              <td>{{convertObjectToString(commande.responseValue)}}</td>
+            </tbody>
+          </table>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="commandesColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: commandesColumns"></tr>
+  </table>
+  <mat-paginator
+    [pageIndex]="page.index"
+    [pageSize]="page.size"
+    [length]="page.total"
+    (page)="paginationChange($event)"
+    [pageSizeOptions]="pageSizeOptions"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>

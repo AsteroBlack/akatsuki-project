@@ -1,0 +1,16 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="30" class="chart-container">
+    <reporting-chart-loader *ngIf="loadingPlateforms"></reporting-chart-loader>
+    <highcharts-chart [Highcharts]="highCharts" [constructorType]="chartConstructor" [options]="chartPlateformsOptions"
+      [callbackFunction]="chartCallback" [(update)]="updateFlag" [oneToOne]="oneToOneFlag"
+      style="width: 100%; height: 400px; display: inline-block;">
+    </highcharts-chart>
+  </div>
+  <div fxFlex="70" class="chart-container">
+    <reporting-chart-loader *ngIf="loadingCommands"></reporting-chart-loader>
+    <highcharts-chart [Highcharts]="highCharts" [constructorType]="chartConstructor" [options]="chartCommandsOptions"
+      [callbackFunction]="chartCallback" [(update)]="updateFlag" [oneToOne]="oneToOneFlag"
+      style="width: 100%; height: 400px; display: inline-block;">
+    </highcharts-chart>
+  </div>
+</div>

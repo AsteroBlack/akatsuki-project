@@ -1,0 +1,124 @@
+$background-orange: #f89137;
+
+
+.container{
+  position: relative;
+  max-height: 70vh;
+  overflow: auto;
+  .loader-container{
+    position: relative;
+    height: 200px;
+    width: 100%;
+  }
+}
+
+.empty-history-title {
+  margin: auto;
+  width: fit-content;
+}
+
+.center-icon-custom-template-container {
+  padding: .8rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 10px;
+  width: 10px;
+
+  .center-icon-custom-template {
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    background: $background-orange;
+    margin: 0;
+    position: absolute;
+  }
+}
+
+.period-container {
+  background: $background-orange;
+  color: white;
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+
+  .period-inner-container {
+    width: max-content;
+    padding: 0.2rem 0.5rem;
+    z-index: 10;
+  }
+}
+
+.center-icon-container {
+  padding: .8rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background: white;
+
+  .icon {
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    background: $background-orange;
+    margin: 0;
+    position: absolute;
+  }
+}
+:host ::ng-deep .event-wrapper-container{
+  color: black;
+}
+:host ::ng-deep .event-outer-container.ng-star-inserted{
+  width: 90%;
+}
+
+:host ::ng-deep .loader{
+  background-color: transparent;
+  color: #fff;
+}
+
+.event{
+  .title{
+    h4{
+      font-weight: 700;
+      span.status{
+        display: none;
+        margin-left: 10px;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        &.SUCCESS{
+          display: inline-block;
+          background-color: #32fc72;
+        }
+        &.ERROR{
+          display: inline-block;
+          background-color: #fe3c3c;
+        }
+        &.INIT{
+          display: inline-block;
+          background-color: #7152f9;
+        }
+      }
+    }
+  }
+  .bottom{
+    .date{
+
+    }
+  }
+}
+
+.btn-back {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.btn-back:hover{
+  color: #ff9000 ;
+}

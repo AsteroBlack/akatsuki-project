@@ -1,0 +1,132 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>Gestion de ressources </h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="formModal" (ngSubmit)="onSubmit(formModal.value)" class="form">
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Libellé olt</mat-label>
+                <input matInput formControlName="oltLibelle" name="oltLibelle">
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Cluster</mat-label>
+                <mat-select formControlName="clusterId" placeholder="Veuillez choisir un cluster">
+                    <mat-option *ngFor="let item of listeInternalCluster" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Pb nom tiroir</mat-label>
+                <!-- <input matInput formControlName="pbNomTiroir" name="pbNomTiroir"> -->
+                <mat-select formControlName="pbNonTiroirId" name="pbNonTiroirId" placeholder="Veuillez choisir un nom tiroir">
+                    <!-- <mat-option>Veuillez choisir un nom tiroir</mat-option> -->
+                    <mat-option *ngFor="let item of listePdNomTiroir" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Pb coupleur</mat-label>
+                <mat-select formControlName="pbCoupleurId" name="pbCoupleurId">
+                    <mat-option [value]="''">Veuillez choisir un coupleur</mat-option>
+                    <mat-option *ngFor="let item of listeCoupleur" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Sortie coupleur</mat-label>
+                <mat-select formControlName="sortieCoupleur">
+                    <mat-option [value]="''">Veuillez choisir un coupleur</mat-option>
+                    <mat-option *ngFor="let item of listeCoupleur" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Couleur</mat-label>
+                <mat-select formControlName="pbColorId">
+                    <mat-option [value]="''">Veuillez choisir une couleur</mat-option>
+                    <mat-option *ngFor="let item of listeParamColor" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>CB nom</mat-label>
+                <input matInput formControlName="cbNom" name="cbNom">
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>CB Fibre</mat-label>
+                <input matInput formControlName="cbFibre" name="cbFibre">
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>CB Couleur</mat-label>
+                <mat-select formControlName="cbColorId">
+                    <mat-option [value]="''">Veuillez choisir une couleur</mat-option>
+                    <mat-option *ngFor="let item of listeParamColor" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Pto nom</mat-label>
+                <input matInput formControlName="ptoNom" name="ptoNom">
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Pto fibre</mat-label>
+                <input matInput formControlName="ptoFibre" name="ptoFibre">
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Pto Couleur</mat-label>
+                <mat-select formControlName="ptoColorId">
+                    <mat-option [value]="''">Veuillez choisir une couleur</mat-option>
+                    <mat-option *ngFor="let item of listeParamColor" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Pb site</mat-label>
+                <mat-select formControlName="pbSiteId" name="pbSiteId">
+                    <mat-option [value]="''">Veuillez choisir un site</mat-option>
+                    <mat-option *ngFor="let item of listeSite" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Longitude</mat-label>
+                <input matInput formControlName="longitude" name="longitude">
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Latitude</mat-label>
+                <input matInput formControlName="latitude" name="latitude">
+            </mat-form-field> -->
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Type pb site</mat-label>
+                <mat-select formControlName="typeSitePbId" name="typeSitePbId">
+                    <mat-option [value]="''">Veuillez choisir un pb site</mat-option>
+                    <mat-option *ngFor="let item of listeParamTypePbSite" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Etat</mat-label>
+                <mat-select formControlName="pbEtatId" name="pbEtatId">
+                    <mat-option [value]="''">Veuillez choisir un état</mat-option>
+                    <mat-option *ngFor="let item of listeEtat" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Pb Nom</mat-label>
+                <input matInput formControlName="pbNom" name="pbNom">
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Pb Plot</mat-label>
+                <input matInput formControlName="pbPlot" name="pbPlot">
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Distribution fibre  </mat-label>
+                <input matInput formControlName="fibreDistribution" name="fibreDistribution">
+            </mat-form-field>
+            <!-- <mat-form-field appearance="standard" fxFlex="45">
+                <mat-label>Couleur fibre</mat-label>
+                <mat-select formControlName="fibreColorId" name="fibreColorId">
+                    <mat-option [value]="''">Veuillez choisir une couleur</mat-option>
+                    <mat-option *ngFor="let item of listeParamColor" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <button type="submit" mat-raised-button color="primary" (click)="onSubmit(formModal.value)" cdkFocusInitial>Valider</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

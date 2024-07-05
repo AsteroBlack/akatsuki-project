@@ -1,0 +1,57 @@
+    <mat-sidenav-container class="sidenav-container" autosize >
+        <mat-sidenav style="width: 205px;" #drawer class="sidenav" fixedInViewport
+            [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+            [mode]="(isHandset$ | async) ? 'over' : 'side'"
+            [opened]="(isHandset$ | async) === false">
+          <mat-toolbar class="bg-dark" color="accent" fxLayout="row" fxLayoutAlign="space-between center">
+              <img src="assets/img/akatsuki-logo.jpg" class="w-img-logo" alt="">
+              <div fxLayout="column" fxFlexAlign="center" class="mat-h2 title-text text-white">
+                Gestion des <br/>ressources
+              </div>
+            </mat-toolbar>
+          <mat-nav-list class="mt-5">
+              <ng-container *ngFor="let item of menuItems">
+                <a *ngIf="controlMenu(item)" fxLayout="column"  class="list-link mat-subheading-3 drop my-3 text-white">
+                    <div fxLayout="row" class="module-item mb-2">
+                        <div class="icon-2x">
+                            <mat-icon aria-hidden="false" [inline]="true" aria-label="Example settings_remote icon">
+                                {{item.icone}}</mat-icon>
+                        </div>
+                        <div class="mr-4 ml-1">{{item.libelle}}</div>
+                    </div>
+                    <ng-container *ngFor="let val of item.children">
+                        <div *ngIf="!val.hidden" class="dropdown-content pl-4" routerLinkActive="active-list-item">
+                            <a [routerLink]="[val.route]">{{val.libelle}}</a>
+                            
+                        </div>
+                    </ng-container>
+                    
+                </a>
+              </ng-container>
+          
+            
+          </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+          <mat-toolbar class="bg-orange" fxLayout="row" fxLayoutAlign="flex-end center">
+            <button
+              type="button"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              (click)="drawer.toggle()"
+              *ngIf="isHandset$ | async">
+              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span style="font-weight: 400; font-size: 13px;">{{userInfo.nom}} {{userInfo.prenom}}</span>
+            <div class="point-action" (click)="askBeforeAction()" style="margin-left: 5px;">
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            </div>
+          </mat-toolbar>
+          <div class="mt-0">
+           
+            <router-outlet></router-outlet>
+          </div>
+            
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    

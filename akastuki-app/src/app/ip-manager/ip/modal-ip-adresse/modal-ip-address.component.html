@@ -1,0 +1,70 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+  <h1 mat-dialog-title>Adresse généré</h1>
+  <button class="close text-white" mat-button (click)="onClose()">X</button>
+</div>
+<div mat-dialog-content>
+  <div class="text-center w-100 text-success">
+    <h2>Détail de la génération</h2>
+  </div>
+  <div class="col-12 d-flex form-inline">
+    <div class="col-6">
+      <div class="form-group py-2">
+        <label for="nd">ND: </label>
+        <div class="ml-2 font-weight-bold">{{ displayResponse?.nd }}</div>
+      </div>
+      <div class="form-group py-2">
+        <label for="nd">Adresse: </label>
+        <div class="ml-2 font-weight-bold">{{ displayResponse?.address }}</div>
+      </div>
+      <div class="form-group py-2">
+        <label for="nd">Adresse de début: </label>
+        <div class="ml-2 font-weight-bold">
+          {{ displayResponse?.beginAddr }}
+        </div>
+      </div>
+      <div class="form-group py-2">
+        <label for="nd">Gateway: </label>
+        <div class="ml-2 font-weight-bold">
+          {{ displayResponse?.gateway }}
+        </div>
+      </div>
+      <div class="form-group py-2">
+        <label for="nd">Cidr adresse:</label>
+        <div class="ml-2 font-weight-bold">
+          {{ displayResponse?.cidrAddress }}
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group py-2">
+        <label for="nd">Nbre Addr: </label>
+        <div class="ml-2 font-weight-bold">{{ displayResponse?.nbreAddr }}</div>
+      </div>
+      <div class="form-group py-2">
+        <label for="nd">Broadcast adresse: </label>
+        <div class="ml-2 font-weight-bold">
+          {{ displayResponse?.broadcastAddr }}
+        </div>
+      </div>
+      <div class="form-group py-2">
+        <label for="nd">Adresse de fin: </label>
+        <div class="ml-2 font-weight-bold">{{ displayResponse?.endAddr }}</div>
+      </div>
+      <div class="form-group py-2">
+        <label for="nd">Customer mask: </label>
+        <div class="ml-2 font-weight-bold">
+          {{ displayResponse?.customerMask }}
+        </div>
+      </div>
+      <div class="form-group py-2">
+        <label for="nd">Mask: </label>
+        <div class="ml-2 font-weight-bold">{{ displayResponse?.mask }}</div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onClose()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" class="button"
+      (click)="offloadIp()"  >Libérer IP</button>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title class="text-white">Provisionning client</h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <div class="" fxLayout="row wrap">
+        <form [formGroup]="formModal" class="form w-100">
+            <div fxLayout="row wrap" fxLayoutGap="10px" fxFlex="100">
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label class="text-dark">Type</mat-label>
+                    <mat-select class="text-dark" (selectionChange)="changeType()" formControlName="type" name="type" placeholder="Veuillez choisir un type">
+                        <mat-option [value]="'prepaid'">Prepaid</mat-option>
+                        <mat-option [value]="'postpaid'">Postpaid</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formModal.controls.type.invalid">veuillez saisir le type</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label class="text-dark">Modèle de box</mat-label>
+                    <mat-select class="text-dark" (ngModelChange)="checkGetAddress()" formControlName="coeff" name="coeff" placeholder="Veuillez choisir un modèle">
+                        <!-- <mat-option [value]="''"></mat-option> -->
+                        <mat-option *ngFor="let item of listeModele" [value]="item?.coefficientModele?.coefMac">{{item.libelle}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formModal.controls.coeff.invalid">veuillez saisir un modele</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label>Mac</mat-label>
+                    <input matNativeControl formControlName="mac" name="mac" (focusout)="checkGetAddress()" placeholder="Ont Mac">
+                    <!-- <input matNativeControl mask="AA:AA:AA:AA:AA:AA" 
+                    [dropSpecialCharacters]="false" formControlName="username" name="username"> -->
+                    <mat-error *ngIf="formModal.controls.mac.invalid">veuillez saisir l'OntMacLabel</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label>Username</mat-label>
+                    <input matNativeControl formControlName="username" name="username">
+                    <mat-error *ngIf="formModal.controls.username.invalid">veuillez saisir l'username</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label>Groupe Name</mat-label>
+                    <mat-select class="text-dark" formControlName="groupename" name="groupename" placeholder="Veuillez choisir un groupename">
+                        <mat-option *ngFor="let item of listeGroupeRadius" [value]="item.key">{{item.key}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formModal.controls.groupename.invalid">veuillez saisir le groupename</mat-error>
+                </mat-form-field>
+                
+                <!-- <fieldset class="p-2 border border-grey" fxFlex="100">
+                    <legend class="fs-title">Paramètre</legend>
+                    <div fxLayout="row wrap">
+                        <mat-form-field appearance="standard" fxFlex="100">
+                            <mat-label>Attributs</mat-label>
+                            <mat-select formControlName="attribut" name="attribut" placeholder="Veuillez choisir une attribut">
+                                <mat-option *ngFor="let item of listeAttributs" [value]="item">{{item.attribut}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formModal.controls.attribut.invalid">veuillez saisir la clée</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="pull-right">
+                        <button (click)="addParamters()" [disabled]="formModal.controls.attribut.value == ''"
+                        class="btn btn-success btn-sm rounded-0">Ajouter</button>
+                    </div>
+                </fieldset> -->
+            </div>
+        </form>
+        <div class="table-container" fxFlex="100">
+            <h3>Liste des paramètres</h3>
+            <table class="table text-light">
+                <tr>
+                    <td>N°</td>
+                    <td>Key</td>
+                    <td>Type</td>
+                    <td>Valeur</td>
+                    <!-- <td></td> -->
+                </tr>
+                <tr *ngFor="let item of listParamters; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>
+                        <select disabled name="item.key" (change)="changeAttribute(item,i)" class="form-control form-control-sm" [(ngModel)]="item.attribut">
+                            <option *ngFor="let elt of listeAttributs" [value]="elt.attribut">
+                                {{elt.attribut}}
+                            </option>
+                        </select>
+                        <!-- <input type="text" class="form-control form-control-sm"
+                        [(ngModel)]="item.key" name="item.key"> -->
+                    </td>
+                    <td>{{item.type}}</td>
+                    <td>
+                        <input type="text" *ngIf="item.attribut !== 'Expiration'" class="form-control form-control-sm"
+                        [(ngModel)]="item.value" name="item.value">
+
+                        <input  type="date" *ngIf="item.attribut === 'Expiration' && !editMode" class="form-control form-control-sm"
+                        [ngModel]="item.value | date:'yyyy-MM-dd'" name="item.value" (ngModelChange)="item.value=$event">
+
+                        <input disabled type="text" *ngIf="item.attribut === 'Expiration' && editMode" class="form-control form-control-sm"
+                        [(ngModel)]="item.valueOld" name="item.valueOld">
+                        
+                        
+
+                        
+                    </td>
+                    <!-- <td style="font-size: 25px; cursor: pointer;">
+                        <i (click)="listParamters.splice(i, 1)" class="fa fa-trash-o"  aria-hidden="true"></i>
+                    </td> -->
+                </tr>
+                <tr *ngIf="listParamters.length==0">
+                    <td class="text-center" colspan="7">Aucune donnée</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" class="button"
+    [disabled]="!formModal.valid" (click)="onSubmit(formModal.value)">Valider</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

@@ -1,0 +1,87 @@
+<div class="content">
+  <div class="container-fluid bg-white">
+    <div class="bg-white" fxLayout="row" fxLayout.xs="column">
+      <div class="col-md-12 col-lg-12 col-xl-12">
+        <mat-card class="bg-white hv-100 text-dark">
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="card-header bg-white card-header-primary">
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+              <mat-form-field appearance="outline">
+                <mat-label class="text-dark">Code</mat-label>
+                <input matInput (keyup)="applyFilter($event)" [(ngModel)]="searchData.codeOffer"
+                  placeholder="Rechercher ici!">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label class="text-dark">Code Type Client</mat-label>
+                <input matInput [(ngModel)]="searchData.codeTypeClient" placeholder="Rechercher ici!">
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxlayoutalign="space-between center">
+              <mat-icon (click)="rechercher()" class="focus-cursor mx-3" aria-hidden="false" title="Rechercher"
+                [inline]="true" aria-label="Example search icon">
+                search</mat-icon>
+              <mat-icon *ngIf="canCreateOffer" class="focus-cursor" (click)="openModal(offerActionTypes.CREATE)"
+                aria-hidden="false" title="Ajouter un compte" [inline]="true"
+                aria-label="Example create_new_folder icon">
+                create_new_folder</mat-icon>
+            </div>
+          </div>
+          <mat-card-content class="bg-white">
+            <div class="table-container">
+              <table mat-table [dataSource]="offersDataSource" class="mat-tablo mat-elevation-z8 bg-white text-dark">
+                <ng-container matColumnDef="offer">
+                  <th class="td-small" mat-header-cell *matHeaderCellDef> Offres </th>
+                  <td class="td-small" mat-cell *matCellDef="let offer">
+                    <div class="row column" [ngClass]="showOffre(offer) ? 'row-open' : ''"
+                      fxLayoutAlign="space-between">
+                      <div>
+                        <mat-icon class="focus-cursor" (click)="toggleOffreDto(offer.id)">{{ showOffre(offer) ?
+                          'arrow_drop_down' : 'arrow_right' }}</mat-icon><br>
+                        <b>Offre:</b> {{ offer.codeOffer }} <br>
+                        <b>Code Type Client:</b> {{ offer.codeTypeClient }}<br>
+                        <span *ngIf="offer.description" [title]="offer.description!"><b>Description:</b> {{
+                          formatDescriptionForTable(offer) }}</span>
+                      </div>
+                  <td>
+                    <div fxLayout="row" fxLayoutAlign="space-around center">
+                      <mat-icon *ngIf="canUpdateOffer" class="focus-cursor"
+                        (click)="openModal(offerActionTypes.UPDATE, offer)" aria-hidden="false" title="Modifier"
+                        [inline]="true">mode</mat-icon>
+                      <mat-icon *ngIf="canDeleteOffer" class="focus-cursor" (click)="askBeforeDelete(offer.id)"
+                        aria-hidden="false" title="Supprimer" [inline]="true"
+                        aria-label="Example delete_forever icon">delete_forever</mat-icon>
+                    </div>
+                  </td>
+            </div>
+            <div *ngIf="showOffre(offer)">
+              <table class="subtable mat-tablo mat-elevation-z8 bg-white text-dark">
+                <thead>
+                  <tr>
+                    <th>Plate Forme</th>
+                    <th>Libellé</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let dto of offer.datasGroupe">
+                    <td>{{ dto.plateformeLibelle }}</td>
+                    <td>{{ dto.libelle }}</td>
+                  </tr>
+                  <tr *ngIf="!offer.datasGroupe || offer.datasGroupe.length<1">
+                    <td class="center" colspan="2">Aucune donnée</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="offersColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: offersColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+      </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,86 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+  <h1 mat-dialog-title>Détails</h1>
+  <button class="close text-white" mat-button (click)="onCLose()">X</button>
+</div>
+<div mat-dialog-content>
+  <div *ngIf="showDetails" class="btn-back" (click)="onBack()">
+    <mat-icon class="focus-cursor">arrow_back</mat-icon> <span>Retour</span>
+  </div>
+  <div class="container">
+    <div *ngIf="loading" class="loader-container">
+      <reporting-chart-loader></reporting-chart-loader>
+    </div>
+    <ngx-timeline
+
+      [events]="timelineConfig.events"
+      [langCode]="timelineConfig.langCode"
+      [enableAnimation]="timelineConfig.enableAnimation"
+      [centerIconCustomTemplate]="centerIconCustomTemplate"
+      [periodCustomTemplate]="periodCustomTemplate"
+      [innerEventCustomTemplate]="innerEventCustomTemplate"
+
+      (clickEmitter)="onSelectDetail($event?.eventInfo?.id!)"
+    >
+    </ngx-timeline>
+    <reporting-request-value-details
+      *ngIf="showDetails"
+      (closeDetails)="onBack()"
+      [commandeDetails]="detailToShow"
+    ></reporting-request-value-details>
+    <h3
+      class="empty-history-title"
+      *ngIf="timelineConfig.events.length < 1 && !loading"
+    >
+      Historique vide
+    </h3>
+  </div>
+</div>
+
+<ng-template #centerIconCustomTemplate let-index="index" let-event="event">
+  <!-- {{ customLog(event, index) }} -->
+  <!-- <div [ngClass]="'center-icon-custom-template-container '+event?.eventInfo?.status!"> -->
+  <div class="center-icon-custom-template-container">
+    <div class="center-icon-custom-template"></div>
+  </div>
+</ng-template>
+<ng-template
+  #periodCustomTemplate
+  let-period="period"
+  let-index="index"
+  let-event="event"
+>
+  <div [ngClass]="{ 'transparent first-line': !index }" class="line"></div>
+  <div class="period-container">
+    <div class="period-inner-container">
+      <span>
+        {{
+          formatDateInMonthYear(period.firstDate)
+        }}
+      </span>
+    </div>
+  </div>
+  <div class="line"></div>
+</ng-template>
+
+<ng-template #innerEventCustomTemplate let-event="event">
+  <div class="event">
+    <div class="title">
+      <h4>{{ event.eventInfo.title }}<span [ngClass]="event.eventInfo?.status ? 'status '+ event.eventInfo?.status : 'status' "></span></h4>
+    </div>
+    <div class="bottom">
+      <div class="date">
+        {{ formatFullDateTime(event.eventInfo.timestamp) }}
+      </div>
+    </div>
+  </div>
+
+  <ng-template #dateInstantCustomTemplate>
+    <span>
+      {{
+        event.eventInfo
+      }}
+    </span>
+  </ng-template>
+</ng-template>
+
+

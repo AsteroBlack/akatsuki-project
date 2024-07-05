@@ -1,0 +1,179 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>{{data[0] === true ? 'Migration Block IP' : data[0] === false ? 'Bloquer Adresse' : 'Libération adresse'}}</h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div *ngIf="data[0]=== true">
+    <div mat-dialog-content>
+        <form [formGroup]="formModalNew" (ngSubmit)="onSubmitMigration(formModalNew.value)" class="form">
+            <div fxLayout="row wrap" fxLayoutGap="10px">
+                
+                <mat-form-field appearance="standard" fxFlex="100" style="padding-bottom: 2px;">
+                    <mat-label class="text-white">IP Source</mat-label>
+                    <input matInput mask="IP" formControlName="ipSource" name="ipSource" (input)="validateIP(formModalNew.value.ipSource)"
+                        [dropSpecialCharacters]="false">
+                    <!-- <input matInput pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(0)$" formControlName="address" name="address"> -->
+                    <span *ngIf="this.formModalNew.value.ipSource && isCorrectIp" class="valid-ip">Adresse correcte</span>
+                    <span *ngIf="this.formModalNew.value.ipSource && !isCorrectIp" class="invalid-ip">Format IP invalide Ex:
+                        160.230.021.0</span>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" fxFlex="100" style="padding-bottom: 2px;">
+                    <mat-label class="text-white">IP Destination</mat-label>
+                    <input matInput mask="IP" formControlName="ipDestination" name="ipDestination" (input)="validateIP(formModalNew.value.ipDestination)"
+                        [dropSpecialCharacters]="false">
+                    <!-- <input matInput pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(0)$" formControlName="address" name="address"> -->
+                    <span *ngIf="this.formModalNew.value.ipDestination && isCorrectIp" class="valid-ip">Adresse correcte</span>
+                    <span *ngIf="this.formModalNew.value.ipDestination && !isCorrectIp" class="invalid-ip">Format IP invalide Ex:
+                        160.230.021.0</span>
+                </mat-form-field>
+
+                
+                    <!-- <mat-checkbox formControlName="isLocked" name="isLocked">
+                        Activer
+                    </mat-checkbox> -->
+                    <p>
+                        Bloqué
+                        <input type="checkbox" formControlName='isLocked' name="isLocked"/>
+                    </p>
+
+                
+        
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+        <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!isCorrectIp"
+            (click)="onSubmitMigration(formModalNew.value)">Valider</button>
+    </div>
+</div>
+
+<div *ngIf="data[0]=== 'libération'">
+    <div mat-dialog-content>
+        <form [formGroup]="formModalLiberation" (ngSubmit)="onSubmitLiberation(formModalLiberation.value)" class="form">
+            <div fxLayout="row wrap" fxLayoutGap="10px">
+                
+                <mat-form-field appearance="standard" fxFlex="100" style="padding-bottom: 2px;">
+                    <mat-label class="text-white">Nb</mat-label>
+                    <input matInput  formControlName="number" name="number"
+                        >
+                    <!-- <input matInput pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(0)$" formControlName="address" name="address"> -->
+                    <!-- <span *ngIf="this.formModalLiberation.value.number" class="valid-ip">Numéro valide</span>
+                    <span *ngIf="!this.formModalLiberation.value.number" class="invalid-ip">Numéro invalide</span> -->
+                </mat-form-field>          
+        
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+        <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formModalLiberation.value.number"
+            (click)="onSubmitLiberation(formModalLiberation.value)">Valider</button>
+    </div>
+</div>
+
+<div *ngIf="data[0].id">
+    <div mat-dialog-content>
+        <form [formGroup]="formModal" (ngSubmit)="onSubmits(formModal.value)" class="form">
+            <div fxLayout="row wrap" fxLayoutGap="10px">
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label class="text-white">Type client</mat-label>
+                    <mat-select formControlName="idTypeClient" name="idTypeClient"
+                        placeholder="Veuillez choisir un type de client">
+                        <mat-option *ngFor="let item of listeTypeClient" [value]="item.id">{{item.libelle}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formModal.controls.idTypeClient.invalid">veuillez saisir le type de client
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label class="text-white">Service</mat-label>
+                    <mat-select formControlName="idService" name="idService" placeholder="Veuillez choisir un service">
+                        <mat-option *ngFor="let item of listeService" [value]="item.id">{{item.libelle}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formModal.controls.idService.invalid">veuillez saisir le service</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label class="text-white">Zone</mat-label>
+                    <mat-select formControlName="idZone" name="idZone" placeholder="Veuillez choisir une zone">
+                        <mat-option *ngFor="let item of listeZone" [value]="item.id">{{item.libelle}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formModal.controls.idZone.invalid">veuillez saisir la zone</mat-error>
+                </mat-form-field>
+              <!--   <mat-form-field appearance="standard" fxFlex="100" style="padding-bottom: 2px;">
+                    <mat-label class="text-white">Adresse</mat-label>
+                    <input matInput mask="IP" formControlName="ipAddress" name="address" (input)="validateIPaddress()"
+                        [dropSpecialCharacters]="false"> -->
+                    <!-- <input matInput pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(0)$" formControlName="address" name="address"> -->
+                 <!--    <span *ngIf="this.formModal.value.address && isCorrectIp" class="valid-ip">Adresse correcte</span>
+                    <span *ngIf="this.formModal.value.address && !isCorrectIp" class="invalid-ip">Format IP invalide Ex:
+                        160.230.021.0</span>
+                </mat-form-field> -->
+
+               <!--  <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label class="text-white">Masque</mat-label>
+                    <input matInput formControlName="mask" name="mask" (input)="validateMaskAddress()"> -->
+                    <!-- <input matInput formControlName="mask" name="mask" pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"> -->
+                   <!--  <span *ngIf="this.formModal.value.mask && isCorrectMask" class="valid-ip">Adresse correcte</span>
+                    <span *ngIf="this.formModal.value.mask && !isCorrectMask" class="invalid-ip">Format Masque invalide
+                        Ex: 160.230.021.0</span>
+                </mat-form-field> -->
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+        <button mat-raised-button color="primary" type="submit" class="button" 
+            (click)="onSubmits(formModal.value)">Valider</button>
+
+        <!--     <button  *ngIf="!data[1].id" mat-raised-button color="primary" type="submit" class="button"
+    [disabled]="!formModal.valid" (click)="onSubmits(formModal.value)">Valider</button> -->
+        <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+    </div>
+</div>
+
+<div *ngIf="data[0]=== false">
+    <div mat-dialog-content>
+        <form [formGroup]="formModal" (ngSubmit)="onSubmit(formModal.value)" class="form">
+            <div fxLayout="row wrap" fxLayoutGap="10px">
+                <!-- <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label class="text-white">Type client</mat-label>
+                    <mat-select formControlName="idTypeClient" name="idTypeClient"
+                        placeholder="Veuillez choisir un type de client">
+                        <mat-option *ngFor="let item of listeTypeClient" [value]="item.id">{{item.libelle}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formModal.controls.idTypeClient.invalid">veuillez saisir le type de client
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label class="text-white">Service</mat-label>
+                    <mat-select formControlName="idService" name="idService" placeholder="Veuillez choisir un service">
+                        <mat-option *ngFor="let item of listeService" [value]="item.id">{{item.libelle}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formModal.controls.idService.invalid">veuillez saisir le service</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label class="text-white">Zone</mat-label>
+                    <mat-select formControlName="idZone" name="idZone" placeholder="Veuillez choisir une zone">
+                        <mat-option *ngFor="let item of listeZone" [value]="item.id">{{item.libelle}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formModal.controls.idZone.invalid">veuillez saisir la zone</mat-error>
+                </mat-form-field> -->
+                <mat-form-field appearance="standard" fxFlex="100" style="padding-bottom: 2px;">
+                    <mat-label class="text-white">Adresse</mat-label>
+                    <input matInput mask="IP" formControlName="ipAddress" name="ipAddress" (input)="validateIPaddress()"
+                        [dropSpecialCharacters]="false">
+                    <!-- <input matInput pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(0)$" formControlName="address" name="address"> -->
+                    <span *ngIf="this.formModal.value.ipAddress && isCorrectIp" class="valid-ip">Adresse correcte</span>
+                    <span *ngIf="this.formModal.value.ipAddress && !isCorrectIp" class="invalid-ip">Format IP invalide Ex:
+                        160.230.021.0</span>
+                </mat-form-field>
+                
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+        <button mat-raised-button color="primary" type="submit" class="button"
+            (click)="onSubmit(formModal.value)">Valider</button>
+    </div>
+</div>

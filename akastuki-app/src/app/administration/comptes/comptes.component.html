@@ -1,0 +1,92 @@
+<div class="content">
+    <div class="container-fluid bg-white">
+        <div class="bg-white" fxLayout="row" fxLayout.xs="column">
+            <div class="col-md-12 col-lg-12 col-xl-12">
+                <mat-card class="bg-white hv-100 text-dark">
+                    <div fxLayout="row" fxLayoutAlign="space-between center"
+                        class="card-header bg-white card-header-primary">
+                        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                            <mat-form-field appearance="outline">
+                                <mat-label class="text-dark">Code</mat-label>
+                                <input matInput (keyup)="applyFilter($event)" [(ngModel)]="searchData.userCompte"
+                                    placeholder="Rechercher ici!">
+                            </mat-form-field>
+                            <!-- <mat-form-field appearance="outline">
+                                <mat-label class="text-dark">Libellé</mat-label>
+                                <input matInput [(ngModel)]="searchData.libelle" placeholder="Rechercher ici!">
+                            </mat-form-field> -->
+                        </div>
+
+                        <div fxLayout="row" fxlayoutalign="space-between center">
+                            <mat-icon (click)="rechercher()" class="focus-cursor mx-3" aria-hidden="false"
+                                title="Rechercher" [inline]="true" aria-label="Example search icon">
+                                search</mat-icon>
+                            <mat-icon class="focus-cursor" (click)="openModal()" aria-hidden="false"
+                                title="Ajouter un compte" [inline]="true" aria-label="Example create_new_folder icon">
+                                create_new_folder</mat-icon>
+                        </div>
+                    </div>
+                    <mat-card-content class="bg-white">
+                        <div class="table-container">
+                            <table mat-table [dataSource]="listeComptes" class="mat-tablo mat-elevation-z8 bg-white text-dark">
+                                <!-- num Column -->
+                                <ng-container matColumnDef="num">
+                                    <th class="td-small" mat-header-cell *matHeaderCellDef> No. </th>
+                                    <td class="td-small" mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </td>
+                                </ng-container>
+
+                                <!-- Coe Column -->
+                                <ng-container matColumnDef="userCompte">
+                                    <th mat-header-cell *matHeaderCellDef> Compte </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.userCompte}} </td>
+                                </ng-container>
+
+                                <!-- libellé Column -->
+                                <ng-container matColumnDef="securityPassword">
+                                    <th mat-header-cell *matHeaderCellDef> Sécurity Password </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.securityPassword}} </td>
+                                </ng-container>
+
+                                <!-- libellé Column -->
+                                <ng-container matColumnDef="securityToken">
+                                    <th mat-header-cell *matHeaderCellDef> Sécurity Token </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.securityToken}} </td>
+                                </ng-container>
+
+                                <!-- libellé Column -->
+                                <ng-container matColumnDef="createdAt">
+                                    <th mat-header-cell *matHeaderCellDef> Date de création </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.createdAt}} </td>
+                                </ng-container>
+
+                                <!-- option Column -->
+                                <ng-container matColumnDef="options">
+                                    <th mat-header-cell *matHeaderCellDef> Option </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <div fxLayout="row" fxLayoutAlign="space-around center">
+                                            <mat-icon class="focus-cursor d-none" (click)="openModal(element)"
+                                                aria-hidden="false" title="Modifier" [inline]="true"
+                                                aria-label="Example mode icon">mode</mat-icon>
+                                            <mat-icon class="focus-cursor" (click)="askBeforeDelete(element.idCompte)"
+                                                aria-hidden="false" title="Supprimer" [inline]="true"
+                                                aria-label="Example delete_forever icon">delete_forever</mat-icon>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="modulesArrayColumn"></tr>
+                                <tr mat-row *matRowDef="let row; columns: modulesArrayColumn;"></tr>
+                                <!-- <tr mat-footer-row  *ngIf="listeRessourcesDisruptive.length==0">
+                                    <td colspan="28">Aucune donnée</td>
+                                </tr> -->
+                            </table>
+                            <mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageIndex]="page.index"
+                                [pageSize]="page.size" [length]="page.total" (page)="paginationChange($event)"
+                                showFirstLastButtons></mat-paginator>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

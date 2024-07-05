@@ -1,0 +1,7 @@
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline, :host ::ng-deep .mat-icon-button, :host ::ng-deep .mat-form-field-label {
+  color: #000;
+}
+
+:host ::ng-deep .mat-focused .mat-form-field-label{
+  color: #ff9000;
+}

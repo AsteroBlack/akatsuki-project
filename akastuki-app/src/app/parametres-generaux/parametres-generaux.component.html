@@ -1,0 +1,16 @@
+<!-- <div>
+    <ul style="background: #343A40; color: white;">
+        <li (click)="onSelectMenu(item)" [routerLink]="item" [class.isSelect]='activeMenu == item'  *ngFor="let item of listMenu" style="cursor: pointer; text-transform: capitalize;">{{item}}</li>
+    </ul>
+</div>
+<router-outlet></router-outlet> -->
+
+
+<div>
+    <ul style="background: #343A40; color: white;">
+        <ng-container *ngFor="let item of listMenu">
+            <li  *ngIf="!item.hidden" [routerLink]="item.key" (click)="onSelectMenu(item.key)" [class.isSelect]='activeMenu == item.key'   style="cursor: pointer; text-transform: capitalize;">{{item.key}}</li>
+        </ng-container>
+    </ul>
+</div>
+<router-outlet></router-outlet>

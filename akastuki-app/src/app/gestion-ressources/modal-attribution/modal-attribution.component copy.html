@@ -1,0 +1,169 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>Attribution ressources </h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+
+
+
+<form [formGroup]="formModal" (ngSubmit)="onSubmit(formModal.value)" class="form" >
+    <div fxLayout="row wrap" fxLayoutGap="10px" >
+        <ul class="wizard wizard-steps-3">
+            <li>
+              <div class="step" style="cursor: pointer;" [class.active]="activatedStep == 0" (click)="activateStep(0)">
+                <span>1 Client</span>
+              </div>
+            </li>
+            
+            <li>
+              <div class="step" style="cursor: pointer;" [class.active]="activatedStep == 1" (click)="activateStep(1)">
+                <span>2 Résources</span>
+              </div>
+            </li>
+            <li>
+              <div class="step" style="cursor: pointer;" [class.active]="activatedStep == 2" (click)="activateStep(2)">
+                <span>3 Résumé</span>
+              </div>
+            </li>
+          </ul>
+    </div>
+    <div class="col col-md-12" *ngIf="activatedStep == 0" style="min-height: 300px; max-height: 600px;overflow:auto">
+        <div class="row" >
+            <mat-form-field appearance="standard" fxFlex="15" style="padding: 5px;">
+                <mat-label>Nouveau client</mat-label>
+                    <mat-select formControlName="isNouveauClient" name="isNouveauClient">
+                        <mat-option [value]="''">Nouveau client?</mat-option>
+                        <mat-option *ngFor="let item of options" [value]="item.valeur">{{item.libelle}}</mat-option>
+                    </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="40" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                <mat-label>Login ou nd</mat-label>
+                <input matInput formControlName="searchClient" name="searchClient">
+            </mat-form-field>
+    
+            <mat-form-field appearance="standard" fxFlex="20" style="padding: 5px;" *ngIf="formModal.value.isNouveauClient">
+                <mat-label>Techno</mat-label>
+                <mat-select formControlName="technoId" name="technoId">
+                    <mat-option [value]="''">Veuillez choisir techno</mat-option>
+                    <mat-option *ngFor="let item of listeTechno" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-form-field appearance="standard" fxFlex="45" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Login</mat-label>
+                <input matInput formControlName="clientLoginClient" name="clientLoginClient">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="38" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Nd</mat-label>
+                <input matInput formControlName="clientNdClient" name="clientNdClient">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Nom</mat-label>
+                <input matInput formControlName="clientNomClient" name="clientNomClient">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Sn</mat-label>
+                <input matInput formControlName="clientSnClient" name="clientSnClient">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Mac</mat-label>
+                <input matInput formControlName="clientMacClient" name="clientMacClient">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Type client</mat-label>
+                <mat-select formControlName="clientTypeClientId" name="clientTypeClientId">
+                    <mat-option [value]="''">Veuillez choisir techno</mat-option>
+                    <mat-option *ngFor="let item of listeParamTypeClient" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Mac</mat-label>
+                <input matInput formControlName="clientMacClient" name="clientMacClient">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Mask</mat-label>
+                <input matInput formControlName="clientMaskClient" name="clientMaskClient">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Contract billing</mat-label>
+                <input matInput formControlName="clientContratBiling" name="clientContratBiling">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Vlan</mat-label>
+                <input matInput formControlName="clientVlanClient" name="clientVlanClient">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Code offre</mat-label>
+                <input matInput formControlName="clientOffreCodeClient" name="clientOffreCodeClient">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Libellé offre</mat-label>
+                <input matInput formControlName="clientOffreLibClient" name="clientOffreLibClient">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="33" style="padding: 5px;" *ngIf="!formModal.value.isNouveauClient">
+                <mat-label>Localisation</mat-label>
+                <input matInput formControlName="clientLocalisationClient" name="clientLocalisationClient">
+            </mat-form-field>
+     
+
+
+
+
+
+
+
+                        <button mat-raised-button   type="button" color="warn" style="height: 30px; margin-top: 30px;" (click)="onSearchClient()">Rechercher</button>
+        </div>
+    </div>
+    <div class="col col-md-12" *ngIf="activatedStep == 1" style="min-height: 300px;">
+        <div class="row" >
+           
+            <mat-form-field appearance="standard" fxFlex="40" style="padding: 5px;">
+                <mat-label>Pb</mat-label>
+                <input matInput formControlName="pb" name="pb">
+            </mat-form-field>
+
+                        <button mat-raised-button   type="button" color="warn" style="height: 30px; margin-top: 30px;" (click)="onSearchRessourcesDisponibles()">Rechercher</button>
+        </div>
+    </div>
+    <div class="col col-md-12" *ngIf="activatedStep == 2" style="min-height: 300px;">
+        <div class="row" >
+               <!-- <strong>Pb: </strong> <span>jfkdjfkjdk</span><br>
+               <strong>Pb: </strong> <span>jfkdjfkjdk</span><br>
+               <strong>Pb: </strong> <span>jfkdjfkjdk</span><br>
+               <strong>Pb: </strong> <span>jfkdjfkjdk</span><br>
+               <strong>Pb: </strong> <span>jfkdjfkjdk</span><br>
+               <strong>Pb: </strong> <span>jfkdjfkjdk</span><br> -->
+
+
+
+        </div>
+    </div>
+</form>
+
+    
+
+
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <!-- <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button> -->
+    <button mat-raised-button [class.invisible]="activatedStep ==0"  color="warn" (click)="onPrevStep()">Précédent</button>
+
+    <button  class="pull-right" mat-raised-button color="primary" *ngIf="activatedStep !=2"  (click)="onNextStep()" cdkFocusInitial>Suivant</button>
+    <button type="submit" mat-raised-button color="primary" *ngIf="activatedStep ==2" (click)="onSubmit(formModal.value)" cdkFocusInitial>Valider</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

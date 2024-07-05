@@ -1,0 +1,57 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>Cluster</h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="formModal" (ngSubmit)="onSubmit(formModal.value)" class="form">
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Libelle</mat-label>
+                <input matInput formControlName="libelle" name="libelle">
+                <mat-error *ngIf="formModal.controls.libelle.invalid">veuillez saisir le libelle</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Localisation</mat-label>
+                <input matInput type="text" formControlName="localisation" name="localisation">
+                <mat-error *ngIf="formModal.controls.localisation.invalid">veuillez saisir la localisation</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Superficie</mat-label>
+                <input matInput type="number" formControlName="superficie" name="superficie">
+                <mat-error *ngIf="formModal.controls.superficie.invalid">veuillez saisir la localisation</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Site</mat-label>
+                <mat-select formControlName="pdSiteId" name="pdSiteId" placeholder="Veuillez choisir un site">
+                    <mat-option  [value]="''">Aucune valeur</mat-option>
+                    <mat-option *ngFor="let item of listeSite" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formModal.controls.pdSiteId.invalid">veuillez saisir le site</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Secteur</mat-label>
+                <mat-select formControlName="secteurId" name="secteurId" placeholder="Veuillez choisir un secteur">
+                    <mat-option  [value]="''">Aucune valeur</mat-option>
+                    <mat-option *ngFor="let item of listeSecteur" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formModal.controls.secteurId.invalid">veuillez saisir le secteur</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Longitude</mat-label>
+                <input matInput type="number" formControlName="longitude" name="longitude">
+                <mat-error *ngIf="formModal.controls.longitude.invalid">veuillez saisir la longitude</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Latitude</mat-label>
+                <input matInput type="number" formControlName="latitude" name="latitude">
+                <mat-error *ngIf="formModal.controls.latitude.invalid">veuillez saisir la latitude</mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-Modules fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" class="button"
+    [disabled]="!formModal.valid" (click)="onSubmit(formModal.value)">Valider</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

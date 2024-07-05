@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+@import 'assets/styles/orange-pallette.scss';
+
+// @include mat-core();
+
+$myProject-primary: mat-palette($md-orange, 50);
+$myProject-accent: mat-palette($md-orange, 300);
+$myProject-warn: mat-palette($md-orange, A100);
+$myProject-foreground: mat-palette($md-orange);
+$myProject-theme: mat-light-theme($myProject-primary, $myProject-accent, $myProject-warn);
+
+// @include mat-form-field-theme($myProject-theme); // Form-Field theme
+// @include mat-input-theme($myProject-theme);
+
+// @include angular-material-theme($myProject-theme);

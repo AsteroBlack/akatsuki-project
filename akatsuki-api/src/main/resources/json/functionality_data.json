@@ -1,0 +1,174 @@
+{
+	"user": 1,
+	"datas": [
+		{
+			"code": "ACTION",
+			"name": "ACTION"
+		},
+		{
+			"code": "VIEW_ACTION",
+			"parentCode": "ACTION",
+			"name": "VIEW ACTION"
+		},
+		{
+			"code": "CREATE_ACTION",
+			"parentCode": "ACTION",
+			"name": "CREATE ACTION"
+		},
+		{
+			"code": "UPDATE_ACTION",
+			"parentCode": "ACTION",
+			"name": "UPDATE ACTION"
+		},
+		{
+			"code": "DELETE_ACTION",
+			"parentCode": "ACTION",
+			"name": "DELETE ACTION"
+		},
+		{
+			"code": "MENUS",
+			"name": "MENUS"
+		},
+		{
+			"code": "VIEW_MENUS",
+			"parentCode": "MENUS",
+			"name": "VIEW MENUS"
+		},
+		{
+			"code": "CREATE_MENUS",
+			"parentCode": "MENUS",
+			"name": "CREATE MENUS"
+		},
+		{
+			"code": "UPDATE_MENUS",
+			"parentCode": "MENUS",
+			"name": "UPDATE MENUS"
+		},
+		{
+			"code": "DELETE_MENUS",
+			"parentCode": "MENUS",
+			"name": "DELETE MENUS"
+		},
+		{
+			"code": "MODULE",
+			"name": "MODULE"
+		},
+		{
+			"code": "VIEW_MODULE",
+			"parentCode": "MODULE",
+			"name": "VIEW MODULE"
+		},
+		{
+			"code": "CREATE_MODULE",
+			"parentCode": "MODULE",
+			"name": "CREATE MODULE"
+		},
+		{
+			"code": "UPDATE_MODULE",
+			"parentCode": "MODULE",
+			"name": "UPDATE MODULE"
+		},
+		{
+			"code": "DELETE_MODULE",
+			"parentCode": "MODULE",
+			"name": "DELETE MODULE"
+		},
+		{
+			"code": "ROLE",
+			"name": "ROLE"
+		},
+		{
+			"code": "VIEW_ROLE",
+			"parentCode": "ROLE",
+			"name": "VIEW ROLE"
+		},
+		{
+			"code": "CREATE_ROLE",
+			"parentCode": "ROLE",
+			"name": "CREATE ROLE"
+		},
+		{
+			"code": "UPDATE_ROLE",
+			"parentCode": "ROLE",
+			"name": "UPDATE ROLE"
+		},
+		{
+			"code": "DELETE_ROLE",
+			"parentCode": "ROLE",
+			"name": "DELETE ROLE"
+		},
+		{
+			"code": "ROLE_ACTION",
+			"name": "ROLE_ACTION"
+		},
+		{
+			"code": "VIEW_ROLE_ACTION",
+			"parentCode": "ROLE_ACTION",
+			"name": "VIEW ROLE_ACTION"
+		},
+		{
+			"code": "CREATE_ROLE_ACTION",
+			"parentCode": "ROLE_ACTION",
+			"name": "CREATE ROLE_ACTION"
+		},
+		{
+			"code": "UPDATE_ROLE_ACTION",
+			"parentCode": "ROLE_ACTION",
+			"name": "UPDATE ROLE_ACTION"
+		},
+		{
+			"code": "DELETE_ROLE_ACTION",
+			"parentCode": "ROLE_ACTION",
+			"name": "DELETE ROLE_ACTION"
+		},
+		{
+			"code": "ROLE_USER",
+			"name": "ROLE_USER"
+		},
+		{
+			"code": "VIEW_ROLE_USER",
+			"parentCode": "ROLE_USER",
+			"name": "VIEW ROLE_USER"
+		},
+		{
+			"code": "CREATE_ROLE_USER",
+			"parentCode": "ROLE_USER",
+			"name": "CREATE ROLE_USER"
+		},
+		{
+			"code": "UPDATE_ROLE_USER",
+			"parentCode": "ROLE_USER",
+			"name": "UPDATE ROLE_USER"
+		},
+		{
+			"code": "DELETE_ROLE_USER",
+			"parentCode": "ROLE_USER",
+			"name": "DELETE ROLE_USER"
+		},
+		{
+			"code": "USER",
+			"name": "USER"
+		},
+		{
+			"code": "VIEW_USER",
+			"parentCode": "USER",
+			"name": "VIEW USER"
+		},
+		{
+			"code": "CREATE_USER",
+			"parentCode": "USER",
+			"name": "CREATE USER"
+		},
+		{
+			"code": "UPDATE_USER",
+			"parentCode": "USER",
+			"name": "UPDATE USER"
+		},
+		{
+			"code": "DELETE_USER",
+			"parentCode": "USER",
+			"name": "DELETE USER"
+		}
+
+	]
+}

@@ -1,0 +1,14 @@
+ul{
+    padding: 7px 2px;
+    margin: 0;
+}
+li{
+    display: inline-block;
+    margin-left: 20px;
+}
+.isSelect{
+    color: #FF7101;
+}
+.active-list-item {
+    color: #3F51B5 !important; /* Note: You could also use a custom theme */
+  }

@@ -1,0 +1,30 @@
+<div class="content">
+    <div class="card">
+        <mat-card>
+            <mat-card-title>
+                <mat-card-title class="text-center h-60 titre-card">
+                    <img src="assets/img/akatsuki-logo.jpg" class="w-img-logo" alt="">
+                </mat-card-title>
+                <mat-card-subtitle class="text-center">Veuillez vous connecter</mat-card-subtitle>
+            </mat-card-title>
+            <form [formGroup]="authForm" (ngSubmit)="connexion()" >
+                <mat-card-content class="wrapper">
+                        <mat-form-field appearance="outline" color="accent" MatFormFieldAppearance="accent">
+                            <mat-label>Login</mat-label>
+                            <input matInput placeholder="" type="text" 
+                                autocomplete="off" formControlName="login" required/>
+                                <mat-icon matSuffix>account_circle</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" color="accent" MatFormFieldAppearance="accent">
+                            <mat-label>Mot de passe</mat-label>
+                            <input matInput type="password" formControlName="password" required/>
+                            <mat-icon matSuffix>vpn_key</mat-icon>
+                        </mat-form-field>
+                        <mat-card-actions fxLayout="row" fxLayoutAlign="center center" >
+                            <button mat-stroked-button class="w-100" type="submit" color="primary" (click)="connexion()">Se connecter</button>
+                        </mat-card-actions>
+                </mat-card-content> 
+            </form>
+        </mat-card>
+    </div>
+</div>

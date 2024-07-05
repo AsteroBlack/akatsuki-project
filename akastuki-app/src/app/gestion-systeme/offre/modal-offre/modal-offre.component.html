@@ -1,0 +1,65 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+  <h1 mat-dialog-title>{{ actionTypes.CREATE === data.actionType ? 'Nouvelle Offre' : 'Modifier Offre: '+data.offer.codeOffer }}</h1>
+  <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+  <form *ngIf="formModal" [formGroup]="formModal!" (ngSubmit)="onSubmit()" class="form">
+    <div fxLayout="row wrap" fxLayoutGap="10px">
+      <mat-form-field appearance="standard" fxFlex="100">
+        <mat-label class="text-white">Code</mat-label>
+        <input matInput formControlName="codeOffer">
+        <mat-error *ngIf="formModal?.get('codeOffer')?.invalid">veuillez saisir un code valide</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="standard" fxFlex="100">
+        <mat-label class="text-white">Code Type Client</mat-label>
+        <mat-select matInput formControlName="codeTypeClient">
+          <mat-option *ngFor="let typeClient of typeClients" [value]="typeClient.code">{{ typeClient.code }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formModal.get('codeTypeClient')?.invalid">veuillez sélectionner un code type client valide</mat-error>
+      </mat-form-field>
+      <!-- <mat-form-field appearance="standard" fxFlex="100">
+        <mat-label class="text-white">Type Offre</mat-label>
+        <mat-select matInput formControlName="idTypeOffre">
+          <mat-option *ngFor="let offerType of offerTypes" [value]="offerType.id">{{ offerType.libelle }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formModal.get('codeTypeClient')?.invalid">veuillez sélection un type d'offre valide</mat-error>
+      </mat-form-field> -->
+      <mat-form-field appearance="standard" fxFlex="100">
+        <mat-label class="text-white">Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+    </div>
+    <div formArrayName="datasGroupe">
+      <h5>GROUPES</h5>
+      <button type="button" (click)="addGroupeDto()">+ Ajouter Paramètre</button>
+      <div *ngFor="let dto of datasGroupe.controls; let i=index">
+        <div [formGroupName]="i">
+          <mat-form-field appearance="standard" fxFlex="50">
+            <mat-label class="text-white">Plateforme</mat-label>
+            <mat-select matInput formControlName="idPlateforme" (valueChange)="onChangePlateforme(i, $event)">
+              <mat-option *ngFor="let plateforme of plateformes" [value]="plateforme.id">{{ plateforme.libelle }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="datasGroupe.controls[i].get('idPlateforme')?.invalid">veuillez sélectionner une plateforme valide</mat-error>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="datasGroupe.controls[i].get('idPlateforme')?.valid" appearance="standard" fxFlex="50">
+            <mat-label class="text-white">{{ getLabelPlateformeLinked(i) }}</mat-label>
+            <mat-select matInput formControlName="libelle">
+              <mat-option *ngFor="let plateformLink of getListPlateformeLinked(i)" [value]="plateformLink.label">{{ plateformLink.label }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="datasGroupe.controls[i].get('plateformLink')?.invalid">veuillez sélectionner {{ getLabelPlateformeLinked(i) }} valide</mat-error>
+          </mat-form-field>
+        </div>
+        <button type="button" (click)="removeGroupeDto(i)">- Retirer</button>
+        <hr *ngIf="datasGroupe.controls.length>(i+1)">
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+  <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+  <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formModal?.valid"
+    (click)="onSubmit()">Valider</button>
+  <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

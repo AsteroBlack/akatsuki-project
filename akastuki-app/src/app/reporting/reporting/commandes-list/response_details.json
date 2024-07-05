@@ -1,0 +1,130 @@
+{
+  "status": {
+    "code": "800",
+    "message": "Operation effectuee avec succes: "
+  },
+  "hasError": false,
+  "count": 4,
+  "items": [
+    {
+      "_id": "SCdns4cBCFhrXk0lSNY-",
+      "_index": "step_commande_202304",
+      "commande_id": "RSdns4cBCFhrXk0lQNbC",
+      "commande_index": "commande_202304",
+      "date_debut": "24/04/2023 13:15:03",
+      "libelle": "RESERVATION-IP",
+      "plateforme": "IP",
+      "request": "{\"ipAddressBand\":{\"nbreAddr\":\"1\",\"codeZone\":\"OZAC\",\"codeTypeClient\":\"PRO\",\"idService\":\"1\",\"nd\":\"22625671450\"}}}",
+      "responseValue": "ok",
+      "status": "SUCCESS",
+      "user": "Customer Care Account"
+    },
+    {
+      "_id": "SSdns4cBCFhrXk0lSNZb",
+      "_index": "step_commande_202304",
+      "commande_id": "RSdns4cBCFhrXk0lQNbC",
+      "commande_index": "commande_202304",
+      "date_debut": "24/04/2023 13:15:03",
+      "libelle": "RADIUS-CREATE",
+      "plateforme": "RADIUS",
+      "requestValue": {
+        "datasProvisioning": [
+          {
+            "codeTypeClient": "PRO",
+            "datasParameter": [
+              {
+                "key": "ADSL-Agent-Remote-Id",
+                "type": "check",
+                "value": "22625671450"
+              },
+              {
+                "key": "ADSL-Agent-Circuit-Id",
+                "type": "check",
+                "value": "OZAC401/0/7/1:49/ZTEGCFA9987F"
+              },
+              {
+                "type": "reply",
+                "value": "102.180.65.2",
+                "key": "Framed-IP-Address"
+              },
+              {
+                "type": "reply",
+                "value": "255.255.255.0",
+                "key": "Framed-IP-Netmask"
+              },
+              {
+                "type": "reply",
+                "value": "102.180.65.1",
+                "key": "Alc-Default-Router"
+              }
+            ],
+            "groupename": "GR-OBF-PRO-100M-MIG",
+            "username": "54:ce:82:7a:41:7a"
+          }
+        ]
+      },
+      "responseValue": "ok",
+      "status": "SUCCESS",
+      "user": "Customer Care Account"
+    },
+    {
+      "_id": "Ridns4cBCFhrXk0lRtYd",
+      "_index": "step_commande_202304",
+      "commande_id": "RSdns4cBCFhrXk0lQNbC",
+      "commande_index": "commande_202304",
+      "date_debut": "24/04/2023 13:15:02",
+      "libelle": "ONT-ADD",
+      "plateforme": "NBI",
+      "requestValue": {
+        "index": {
+          "dev": "OZAC401",
+          "fn": "0",
+          "sn": "7",
+          "pn": "1",
+          "ontid": "49"
+        },
+        "para": {
+          "name": "22625671450",
+          "alias": "22625671450",
+          "lineprof": "NEW_Business_Fibre_Essentiel",
+          "srvprof": "FUT",
+          "serialnum": "ZTEGCFA9987F",
+          "auth": "SN"
+        }
+      },
+      "responseValue": "ok",
+      "status": "SUCCESS",
+      "user": "Customer Care Account"
+    },
+    {
+      "_id": "Rydns4cBCFhrXk0lR9bx",
+      "_index": "step_commande_202304",
+      "commande_id": "RSdns4cBCFhrXk0lQNbC",
+      "commande_index": "commande_202304",
+      "date_debut": "24/04/2023 13:15:03",
+      "libelle": "SERVICE-PORT-ADD",
+      "plateforme": "NBI",
+      "requestValue": {
+        "index": {
+          "dev": "OZAC401",
+          "fn": "0",
+          "sn": "7",
+          "pn": "1"
+        },
+        "para": {
+          "vlanid": "2000",
+          "svpid": "2000/0_7_1/49/2/multi-service VLAN mode/2000",
+          "ontid": "49",
+          "gemportid": "2",
+          "tx": "FTTH-12M",
+          "rx": "FTTH-100M",
+          "uv": "2000",
+          "tagtransform": "2"
+        }
+      },
+      "responseValue": "ok",
+      "status": "SUCCESS",
+      "user": "Customer Care Account"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+<mat-sidenav-container class="sidenav-container" autosize >
+    <mat-sidenav style="width: 205px;" #drawer class="sidenav" fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="(isHandset$ | async) === false">
+      <mat-toolbar class="bg-dark" color="accent" fxLayout="row" fxLayoutAlign="space-between center">
+          <img src="assets/img/akatsuki-logo.jpg" class="w-img-logo" alt="">
+          <div fxLayout="column" fxFlexAlign="center" class="mat-h2 title-text text-white">
+            Gestion des <br/>ressources
+          </div>
+        </mat-toolbar>
+      <mat-nav-list class="mt-5" >
+
+          <ng-container *ngFor="let item of menuItems">
+              <div *ngIf="controlMenu(item)" class="menu-item" (click)="onSelectMainMenu(item)" [class.selected-menu]="currentMenuLibelle == item.libelle">
+                <div class="icon-2x" style="display: inline-block;">
+                  <mat-icon aria-hidden="false" [inline]="true" aria-label="Example settings_remote icon">
+                    {{item.icone}}
+                  </mat-icon>
+                </div>
+              <div class="ml-1" style="font-size: 14px;position:absolute;width: 83%;display: inline-block;">
+                <div style="display: inline-block;width: 90%;">{{item.libelle}}</div>
+                <div style="display: inline-block;width: 10%">
+                  <mat-icon style="display: inline;" aria-hidden="false" [inline]="true" aria-label="Example settings_remote icon">
+                    add
+                  </mat-icon>
+                </div>
+              
+              </div>
+              </div>
+
+
+                <div class="sub-menu-group" *ngIf="item.open" >
+                  <ng-container *ngFor="let val of item.children" >
+                    <div *ngIf="!val.hidden" class="sub-menu-item" [routerLink]="[val.route]" style="font-size: 14px" (click)="onSelectSubMenu(val.libelle)" [class.selected-sub-menu]="currentSubMenuLibelle == lowerCase(val.libelle)">
+                      {{val.libelle}}
+                    </div>
+                    
+                  </ng-container>
+              </div>
+              <hr *ngIf="controlMenu(item)">
+
+              
+           
+          </ng-container>
+
+          
+      
+        
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar class="bg-orange" fxLayout="row" fxLayoutAlign="flex-end center">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span style="font-weight: 400; font-size: 13px;">{{userInfo.nom}} {{userInfo.prenom}} ({{userInfo.datasRole&&userInfo.datasRole.length?userInfo.datasRole[0].libelle:''}})</span>
+        <div class="point-action" (click)="askBeforeAction()" style="margin-left: 5px;">
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+        </div>
+      </mat-toolbar>
+      <div class="mt-0">
+       
+        <router-outlet></router-outlet>
+      </div>
+        
+    </mat-sidenav-content>
+  </mat-sidenav-container>

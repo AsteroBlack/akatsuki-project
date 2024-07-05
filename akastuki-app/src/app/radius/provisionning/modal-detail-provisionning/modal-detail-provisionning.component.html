@@ -1,0 +1,111 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>Details client {{data[0]?.key}}</h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <div class="section-type"> 
+        <h2 class="section-title pl-2">{{data?.dataGroup?.type}}</h2>
+        <table class="table text-light">
+            <tr>
+                <td>N°</td>
+                <!-- <td>Attribut</td>
+                <td>Opérateur</td> -->
+                <td>Valeur</td>
+                <!-- <td></td> -->
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>{{data?.dataGroup?.value}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="section-type"> 
+       <h2 class="section-title pl-2">{{data?.datasCheck?.type}}</h2>
+        <perfect-scrollbar style="max-width: 100%; max-height: 300px;">
+            <table class="table text-light">
+                <tr>
+                    <td>N°</td>
+                    <td>Attribut</td>
+                    <td>Opérateur</td>
+                    <td>Valeur</td>
+                </tr>
+                <tr *ngFor="let item of data?.datasCheck?.value; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>
+                        {{item.attribute}}
+                    </td>
+                    <td>{{item.op}}</td>
+                    <td>{{item.value}}</td>
+                </tr>
+                <tr *ngIf="data?.datasCheck?.value.length==0">
+                    <td class="text-center" colspan="7">Aucune donnée</td>
+                </tr>
+            </table>
+        </perfect-scrollbar>
+    </div>
+    <div class="section-type"> 
+        <h2 class="section-title pl-2">{{data?.datasReply?.type}}</h2>
+        <perfect-scrollbar style="max-width: 100%; max-height: 300px;">
+            <table class="table text-light">
+                <tr>
+                    <td>N°</td>
+                    <td>Attribut</td>
+                    <td>Opérateur</td>
+                    <td>Valeur</td>
+                    <!-- <td></td> -->
+                </tr>
+                <tr *ngFor="let item of data?.datasReply?.value; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>
+                        {{item.attribute}}
+                    </td>
+                    <td>{{item.op}}</td>
+                    <td>{{item.value}}</td>
+                </tr>
+                <tr *ngIf="data?.datasReply?.value.length==0">
+                    <td class="text-center" colspan="7">Aucune donnée</td>
+                </tr>
+            </table>
+        </perfect-scrollbar>
+    </div>
+    <div class="section-type"> 
+        <h2 class="section-title pl-2">Accounting</h2>
+        <perfect-scrollbar style="max-width: 100%; max-height: 300px;">
+            <table class="table text-light">
+                <tr>
+                    <td>N°</td>
+                    <!-- <td>SessionId</td> -->
+                    <td>Start Time</td>
+                    <td>Update Time</td>
+                    <td>Stop Time</td>
+                    <td></td>
+                </tr>
+                <tr *ngFor="let item of data?.datasAcct; let i = index">
+                    <td>{{i+1}}</td>
+                    <!-- <td>{{item.acctsessionid}}</td> -->
+                    <td>{{item.acctstarttime}}</td>
+                    <td>{{item.acctupdatetime}}</td>
+                    <td>{{item.acctstoptime}}</td>
+                    <td>
+                        <!-- <span class="material-icons-outlined">
+                            info
+                        </span> -->
+                        <mat-icon class="focus-cursor" (click)="voirDetail(item)"
+                            aria-hidden="false" title="info" [inline]="true"
+                            aria-label="Example info icon">info
+                        </mat-icon>
+                    </td>
+                </tr>
+                <tr *ngIf="data?.datasAcct?.length==0">
+                    <td class="text-center" colspan="7">Aucune donnée</td>
+                </tr>
+            </table>
+        </perfect-scrollbar>
+    </div>
+  </div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <!-- <button mat-raised-button color="primary" type="submit" class="button"
+     (click)="onSubmit(formModal.value)">Valider</button> -->
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

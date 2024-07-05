@@ -1,0 +1,30 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+  <h1 mat-dialog-title>{{ actionTypes.CREATE === data.actionType ? 'Nouvelle Offre OLT' : 'Modifier Offre OLT: '+data.offer.template }}</h1>
+  <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+  <form *ngIf="formModal" [formGroup]="formModal!" (ngSubmit)="onSubmit()" class="form">
+    <div fxLayout="row wrap" fxLayoutGap="10px">
+      <mat-form-field appearance="standard" fxFlex="100">
+        <mat-label class="text-white">Template</mat-label>
+        <input matInput formControlName="template">
+        <mat-error *ngIf="formModal?.get('offer')?.invalid">veuillez saisir une offre valide</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="standard" fxFlex="100">
+        <mat-label class="text-white">rx</mat-label>
+        <input matInput formControlName="rx">
+        <mat-error *ngIf="formModal?.get('rx')?.invalid">veuillez saisir un rx valide</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="standard" fxFlex="100">
+        <mat-label class="text-white">tx</mat-label>
+        <input matInput formControlName="tx">
+        <mat-error *ngIf="formModal?.get('tx')?.invalid">veuillez saisir un tx valide</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+  <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+  <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formModal?.valid"
+    (click)="onSubmit()">Valider</button>
+</div>

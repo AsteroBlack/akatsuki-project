@@ -1,0 +1,34 @@
+/* For use in src/lib/core/theming/_palette.scss */
+$md-orange: (
+    50 : #ff7900,
+    100 : #ffb4e6,
+    200 : #fcfafa,
+    300 : #ffffff,
+    400 : #4bb4e6,
+    500 : #50be87,
+    600 : #ffb4e6,
+    700 : #a885d8,
+    800 : #ffd200,
+    900 : #1b278d,
+    A100 : #e70606,
+    A200 : #939dff,
+    A400 : #606eff,
+    A700 : #4757ff,
+    contrast: (
+        // 50 : #000000,
+        // 100 : #000000,
+        // 200 : #000000,
+        // 300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        // A100 : #000000,
+        // A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+

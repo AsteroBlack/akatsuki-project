@@ -1,0 +1,135 @@
+{
+    "status": {
+        "code": "800",
+        "message": "Operation effectuee avec succes: "
+    },
+    "hasError": false,
+    "count": 4,
+    "items": [
+        {
+            "_id": "CatORIkBJSPto4Q14jcg",
+            "_index": "step_commande_202307",
+            "commande_id": "BatORIkBJSPto4Q11zfV",
+            "commande_index": "commande_202307",
+            "date_debut": "11/07/2023 09:36:07",
+            "libelle": "RADIUS-CREATE",
+            "plateforme": "RADIUS",
+            "requestValue": {
+                "datasProvisioning": [
+                    {
+                        "codeTypeClient": "B2C",
+                        "datasParameter": [
+                            {
+                                "key": "Expiration",
+                                "type": "check",
+                                "value": "Jul 25 2023"
+                            },
+                            {
+                                "key": "ADSL-Agent-Remote-Id",
+                                "type": "check",
+                                "value": "22625662901"
+                            },
+                            {
+                                "key": "ADSL-Agent-Circuit-Id",
+                                "type": "check",
+                                "value": "OSCO401/0/6/1:26/ZTEGCFA97FFE"
+                            },
+                            {
+                                "type": "reply",
+                                "value": "102.180.121.115",
+                                "key": "Framed-IP-Address"
+                            },
+                            {
+                                "type": "reply",
+                                "value": "255.255.252.0",
+                                "key": "Framed-IP-Netmask"
+                            },
+                            {
+                                "type": "reply",
+                                "value": "102.180.120.1",
+                                "key": "Alc-Default-Router"
+                            }
+                        ],
+                        "groupename": "GR-B2C-30M",
+                        "username": "54:ce:82:79:ae:74"
+                    }
+                ]
+            },
+            "responseValue": "ok",
+            "status": "SUCCESS",
+            "user": "Workflow Account"
+        },
+        {
+            "_id": "B6tORIkBJSPto4Q14TeJ",
+            "_index": "step_commande_202307",
+            "commande_id": "BatORIkBJSPto4Q11zfV",
+            "commande_index": "commande_202307",
+            "date_debut": "11/07/2023 09:36:07",
+            "libelle": "SERVICE-PORT-ADD",
+            "plateforme": "NBI",
+            "requestValue": {
+                "index": {
+                    "dev": "OSCO401",
+                    "fn": "0",
+                    "sn": "6",
+                    "pn": "1"
+                },
+                "para": {
+                    "vlanid": "2000",
+                    "svpid": "2000/0_6_1/26/2/multi-service VLAN mode/2000",
+                    "ontid": "26",
+                    "gemportid": "2",
+                    "tx": "FTTH-3M",
+                    "rx": "FTTH-30",
+                    "uv": "2000",
+                    "tagtransform": "2"
+                }
+            },
+            "responseValue": "ok",
+            "status": "SUCCESS",
+            "user": "Workflow Account"
+        },
+        {
+            "_id": "BqtORIkBJSPto4Q13zeQ",
+            "_index": "step_commande_202307",
+            "commande_id": "BatORIkBJSPto4Q11zfV",
+            "commande_index": "commande_202307",
+            "date_debut": "11/07/2023 09:36:07",
+            "libelle": "ONT-ADD",
+            "plateforme": "NBI",
+            "requestValue": {
+                "index": {
+                    "dev": "OSCO401",
+                    "fn": "0",
+                    "sn": "6",
+                    "pn": "1",
+                    "ontid": "26"
+                },
+                "para": {
+                    "name": "OSCO401/0/6/1/26",
+                    "alias": "22625662901",
+                    "lineprof": "Orange_Fibre_Access_30",
+                    "srvprof": "ZTE_NEW_VERSION",
+                    "serialnum": "ZTEGCFA97FFE",
+                    "auth": "SN"
+                }
+            },
+            "responseValue": "ok",
+            "status": "SUCCESS",
+            "user": "Workflow Account"
+        },
+        {
+            "_id": "CKtORIkBJSPto4Q14Tf6",
+            "_index": "step_commande_202307",
+            "commande_id": "BatORIkBJSPto4Q11zfV",
+            "commande_index": "commande_202307",
+            "date_debut": "11/07/2023 09:36:07",
+            "libelle": "RESERVATION-IP",
+            "plateforme": "IP",
+            "request": "{\"ipAddressBand\":{\"nbreAddr\":\"1\",\"codeZone\":\"OSCO\",\"codeTypeClient\":\"B2C\",\"idService\":\"1\",\"nd\":\"22625662901\"}}}",
+            "responseValue": "ok",
+            "status": "SUCCESS",
+            "user": "Workflow Account"
+        }
+    ]
+}

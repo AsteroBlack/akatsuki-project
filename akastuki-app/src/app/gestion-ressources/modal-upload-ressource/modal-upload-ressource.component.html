@@ -1,0 +1,29 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>Importation de ressources </h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="formModal" (ngSubmit)="onSubmit(formModal.value)" class="form">
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Techno</mat-label>
+                <mat-select formControlName="techno">
+                    <mat-option *ngFor="let item of listeTechno" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="form-group col-md-12 col-lg-12 row mb-0 mt-3 pr-0">
+                <label for="file-upload" class="custom-file-upload col-sm-12 col-form-label">
+                   <i class="fa fa-cloud-upload"></i> {{nomFichier}}
+                 </label>
+                 <input id="file-upload" (change)="processFile($event)" type="file" 
+                 accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+             </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" class="button"
+    [disabled]="!formModal.valid" (click)="onSubmit(formModal.value)">Valider</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

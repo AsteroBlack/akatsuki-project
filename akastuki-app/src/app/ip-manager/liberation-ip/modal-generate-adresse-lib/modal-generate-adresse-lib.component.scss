@@ -1,0 +1,28 @@
+::ng-deep .mat-dialog-container{
+    background: #000000 !important;
+}
+.form {
+    width: 100%;
+  }
+
+  .select-form{
+    height: 40px !important;
+}
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #fff;
+    display: inline-block;
+    padding: 4%;
+    cursor: pointer;
+    text-align: center;
+}
+
+.action-zone {
+    border : 1.5px solid #919191;
+    overflow : scroll;
+    height: 361px;
+
+}

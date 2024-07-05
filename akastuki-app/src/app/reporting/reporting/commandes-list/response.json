@@ -1,0 +1,400 @@
+{
+  "status": {
+    "code": "800",
+    "message": "Operation effectuee avec succes: "
+  },
+  "hasError": false,
+  "count": 83,
+  "items": [
+    {
+      "_id": "RSdns4cBCFhrXk0lQNbC",
+      "_index": "commande_202304",
+      "date_debut": "24/04/2023 13:15:01",
+      "date_fin": "24/04/2023 13:15:03",
+      "libelle": "activate",
+      "reference": "79ceb2ad-f35f-445d-b3d9-b5820a9655a2",
+      "requestValue": {
+        "parameters": [
+          {
+            "key": "offer",
+            "value": "BFESS"
+          },
+          {
+            "key": "serialNumber",
+            "value": "ZTEGCFA9987F"
+          },
+          {
+            "key": "port",
+            "value": "OZAC401/0/7/1:49"
+          },
+          {
+            "key": "nd",
+            "value": "22625671450"
+          },
+          {
+            "key": "ontMacLabel",
+            "value": "54CE827A417A"
+          },
+          {
+            "key": "accountType",
+            "value": "postpaid"
+          },
+          {
+            "key": "ipAddressCount",
+            "value": "1"
+          }
+        ]
+      },
+      "responseValue": {
+        "parameters": [
+          {
+            "key": "ipAddress",
+            "value": "102.180.65.2"
+          },
+          {
+            "key": "mask",
+            "value": "255.255.255.0"
+          }
+        ]
+      },
+      "status": "SUCCESS",
+      "user": "Customer Care Account"
+    },
+    {
+      "_id": "Uidqs4cBCFhrXk0l-tao",
+      "_index": "commande_202304",
+      "date_debut": "24/04/2023 13:19:05",
+      "date_fin": "24/04/2023 13:19:11",
+      "libelle": "modify",
+      "reference": "a2b940fe-c30e-43be-908b-9a4825760b54",
+      "requestValue": {
+        "parameters": [
+          {
+            "key": "port",
+            "value": "OMNT401/0/3/1:43"
+          },
+          {
+            "key": "offer",
+            "value": "OFELP"
+          },
+          {
+            "key": "accountType",
+            "value": "Prepaid"
+          },
+          {
+            "key": "expirationDate",
+            "value": "22/04/2023"
+          },
+          {
+            "key": "nd",
+            "value": "22625685632"
+          },
+          {
+            "key": "serialNumber",
+            "value": "ZTEGCFA98BAD"
+          },
+          {
+            "key": "ipAddressCount",
+            "value": "1"
+          },
+          {
+            "key": "ontMacLabel",
+            "value": "54CE8279F48E"
+          }
+        ]
+      },
+      "responseValue": {
+        "parameters": [
+          {
+            "key": "message",
+            "value": "java.lang.IllegalArgumentException: Donnée inexistante: Le nd '22625685632' n'existe pas dans le système."
+          }
+        ]
+      },
+      "status": "ERROR",
+      "user": "Workflow Account"
+    },
+    {
+      "_id": "Qidms4cBCFhrXk0lqdbq",
+      "_index": "commande_202304",
+      "date_debut": "24/04/2023 13:14:22",
+      "date_fin": "24/04/2023 13:14:26",
+      "libelle": "clean",
+      "reference": "4cd814eb-1d20-4b13-b7cf-110f534d48a0",
+      "requestValue": {
+        "parameters": [
+          {
+            "key": "port",
+            "value": "OZAC401/0/7/1:49"
+          },
+          {
+            "key": "nd",
+            "value": "22625671450"
+          },
+          {
+            "key": "ignoreIp",
+            "value": "true"
+          }
+        ]
+      },
+      "responseValue": {
+        "parameters": []
+      },
+      "status": "SUCCESS",
+      "user": "Customer Care Account"
+    },
+    {
+      "_id": "QSdfs4cBCFhrXk0lyta4",
+      "_index": "commande_202304",
+      "date_debut": "24/04/2023 13:06:52",
+      "date_fin": "24/04/2023 13:06:52",
+      "libelle": "clean",
+      "reference": "7933b2c7-ffbc-41ed-8ad5-f90e26494f28",
+      "requestValue": {
+        "parameters": [
+          {
+            "key": "port",
+            "value": "OZAC401/0/7/1:49"
+          },
+          {
+            "key": "nd",
+            "value": "22625671450"
+          },
+          {
+            "key": "ignoreIp",
+            "value": "true"
+          }
+        ]
+      },
+      "responseValue": {
+        "parameters": [
+          {
+            "key": "message",
+            "value": "org.mule.component.ComponentException: Failed to invoke ScriptComponent{main-system-authenticate.component.538622309}. Component that caused exception is: ScriptComponent{main-system-authenticate.component.538622309}. groovy.lang.GroovyRuntimeException: Ambiguous method overloading for method java.lang.IllegalArgumentException#<init>.\nCannot resolve which method to invoke for [null] due to overlapping prototypes between:\n\t[class java.lang.Throwable]\n\t[class java.lang.String]"
+          }
+        ]
+      },
+      "status": "ERROR",
+      "user": "undefined"
+    },
+    {
+      "_id": "PidIs4cBCFhrXk0loNa5",
+      "_index": "commande_202304",
+      "date_debut": "24/04/2023 12:41:34",
+      "date_fin": "24/04/2023 12:41:34",
+      "libelle": "clean",
+      "reference": "54087f19-4c2f-4ca1-bbd5-b2e7ca1546a2",
+      "requestValue": {
+        "parameters": [
+          {
+            "key": "port",
+            "value": "OZAC401/0/7/1:49"
+          },
+          {
+            "key": "nd",
+            "value": "22625671450"
+          },
+          {
+            "key": "ignoreIp",
+            "value": "true"
+          }
+        ]
+      },
+      "responseValue": {
+        "parameters": [
+          {
+            "key": "message",
+            "value": "org.mule.component.ComponentException: Failed to invoke ScriptComponent{main-system-authenticate.component.538622309}. Component that caused exception is: ScriptComponent{main-system-authenticate.component.538622309}. groovy.lang.GroovyRuntimeException: Ambiguous method overloading for method java.lang.IllegalArgumentException#<init>.\nCannot resolve which method to invoke for [null] due to overlapping prototypes between:\n\t[class java.lang.Throwable]\n\t[class java.lang.String]"
+          }
+        ]
+      },
+      "status": "ERROR",
+      "user": "undefined"
+    },
+    {
+      "_id": "PSdHs4cBCFhrXk0lr9ai",
+      "_index": "commande_202304",
+      "date_debut": "24/04/2023 12:40:32",
+      "date_fin": "24/04/2023 12:40:32",
+      "libelle": "clean",
+      "reference": "34e50f2d-24f8-40dd-a516-6e14274e9563",
+      "requestValue": {
+        "parameters": [
+          {
+            "key": "port",
+            "value": "OZAC401/0/7/1:49"
+          },
+          {
+            "key": "nd",
+            "value": "22625671450"
+          },
+          {
+            "key": "ignoreIp",
+            "value": "true"
+          }
+        ]
+      },
+      "responseValue": {
+        "parameters": [
+          {
+            "key": "message",
+            "value": "org.mule.component.ComponentException: Failed to invoke ScriptComponent{main-system-authenticate.component.538622309}. Component that caused exception is: ScriptComponent{main-system-authenticate.component.538622309}. groovy.lang.GroovyRuntimeException: Ambiguous method overloading for method java.lang.IllegalArgumentException#<init>.\nCannot resolve which method to invoke for [null] due to overlapping prototypes between:\n\t[class java.lang.Throwable]\n\t[class java.lang.String]"
+          }
+        ]
+      },
+      "status": "ERROR",
+      "user": "undefined"
+    },
+    {
+      "_id": "PCcfs4cBCFhrXk0lc9be",
+      "_index": "commande_202304",
+      "date_debut": "24/04/2023 11:56:35",
+      "date_fin": "24/04/2023 11:56:35",
+      "libelle": "clean",
+      "reference": "f19f86c7-6289-4efa-beee-d5d46a30419f",
+      "requestValue": {
+        "parameters": [
+          {
+            "key": "port",
+            "value": "OZAC401/0/7/1:49"
+          },
+          {
+            "key": "nd",
+            "value": "22625671450"
+          },
+          {
+            "key": "ignoreIp",
+            "value": "true"
+          }
+        ]
+      },
+      "responseValue": {
+        "parameters": [
+          {
+            "key": "message",
+            "value": "org.mule.component.ComponentException: Failed to invoke ScriptComponent{main-system-authenticate.component.538622309}. Component that caused exception is: ScriptComponent{main-system-authenticate.component.538622309}. groovy.lang.GroovyRuntimeException: Ambiguous method overloading for method java.lang.IllegalArgumentException#<init>.\nCannot resolve which method to invoke for [null] due to overlapping prototypes between:\n\t[class java.lang.Throwable]\n\t[class java.lang.String]"
+          }
+        ]
+      },
+      "status": "ERROR",
+      "user": "undefined"
+    },
+    {
+      "_id": "QCdUs4cBCFhrXk0lJdY0",
+      "_index": "commande_202304",
+      "date_debut": "24/04/2023 12:54:08",
+      "date_fin": "24/04/2023 12:54:08",
+      "libelle": "clean",
+      "reference": "6b3e8752-1358-49fb-930a-cd99676d8683",
+      "requestValue": {
+        "parameters": [
+          {
+            "key": "port",
+            "value": "OZAC401/0/7/1:49"
+          },
+          {
+            "key": "nd",
+            "value": "22625671450"
+          },
+          {
+            "key": "ignoreIp",
+            "value": "true"
+          }
+        ]
+      },
+      "responseValue": {
+        "parameters": [
+          {
+            "key": "message",
+            "value": "org.mule.component.ComponentException: Failed to invoke ScriptComponent{main-system-authenticate.component.538622309}. Component that caused exception is: ScriptComponent{main-system-authenticate.component.538622309}. groovy.lang.GroovyRuntimeException: Ambiguous method overloading for method java.lang.IllegalArgumentException#<init>.\nCannot resolve which method to invoke for [null] due to overlapping prototypes between:\n\t[class java.lang.Throwable]\n\t[class java.lang.String]"
+          }
+        ]
+      },
+      "status": "ERROR",
+      "user": "undefined"
+    },
+    {
+      "_id": "PydSs4cBCFhrXk0l8tZr",
+      "_index": "commande_202304",
+      "date_debut": "24/04/2023 12:52:50",
+      "date_fin": "24/04/2023 12:52:50",
+      "libelle": "clean",
+      "reference": "7aaac2e3-d697-455e-9913-03569165cfb8",
+      "requestValue": {
+        "parameters": [
+          {
+            "key": "port",
+            "value": "OZAC401/0/7/1:49"
+          },
+          {
+            "key": "nd",
+            "value": "22625671450"
+          },
+          {
+            "key": "ignoreIp",
+            "value": "true"
+          }
+        ]
+      },
+      "responseValue": {
+        "parameters": [
+          {
+            "key": "message",
+            "value": "org.mule.component.ComponentException: Failed to invoke ScriptComponent{main-system-authenticate.component.538622309}. Component that caused exception is: ScriptComponent{main-system-authenticate.component.538622309}. groovy.lang.GroovyRuntimeException: Ambiguous method overloading for method java.lang.IllegalArgumentException#<init>.\nCannot resolve which method to invoke for [null] due to overlapping prototypes between:\n\t[class java.lang.Throwable]\n\t[class java.lang.String]"
+          }
+        ]
+      },
+      "status": "ERROR",
+      "user": "undefined"
+    },
+    {
+      "_id": "JieKn4cBCFhrXk0lHNaf",
+      "_index": "commande_202304",
+      "date_debut": "20/04/2023 16:40:41",
+      "date_fin": "20/04/2023 16:40:44",
+      "libelle": "modify",
+      "reference": "ef380506-5f6b-4731-8c64-d6d5ff7fa157",
+      "requestValue": {
+        "parameters": [
+          {
+            "key": "port",
+            "value": "OMNT401/0/3/2:26"
+          },
+          {
+            "key": "offer",
+            "value": "OFDPR"
+          },
+          {
+            "key": "accountType",
+            "value": "Prepaid"
+          },
+          {
+            "key": "expirationDate",
+            "value": "08/03/2023"
+          },
+          {
+            "key": "nd",
+            "value": "22625686142"
+          },
+          {
+            "key": "serialNumber",
+            "value": "ZTEGCFA297CE"
+          },
+          {
+            "key": "ipAddressCount",
+            "value": "1"
+          },
+          {
+            "key": "ontMacLabel",
+            "value": "505D7A82AC40"
+          }
+        ]
+      },
+      "responseValue": {
+        "parameters": []
+      },
+      "status": "SUCCESS",
+      "user": "Workflow Account"
+    }
+  ]
+}

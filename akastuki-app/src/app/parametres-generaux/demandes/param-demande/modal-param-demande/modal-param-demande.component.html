@@ -1,0 +1,93 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>DEMANDE</h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="formModal" (ngSubmit)="onSubmit(formModal.value)" class="form">
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <!-- <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Code</mat-label>
+                <input matInput formControlName="code" name="code">
+                <mat-error *ngIf="formModal.controls.code.invalid">veuillez saisir le code</mat-error>
+            </mat-form-field> -->
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Nom</mat-label>
+                <input matInput formControlName="nom" name="nom">
+                <mat-error *ngIf="formModal.controls.nom.invalid">veuillez saisir le nom</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Prenom</mat-label>
+                <input matInput formControlName="prenom" name="prenom">
+                <mat-error *ngIf="formModal.controls.prenom.invalid">veuillez saisir le prenom</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Login</mat-label>
+                <input matInput formControlName="login" name="login">
+                <mat-error *ngIf="formModal.controls.login.invalid">veuillez saisir le login</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Type client</mat-label>
+                <mat-select formControlName="typeClient" name="typeClient" placeholder="Veuillez choisir type client">
+                    <mat-option *ngFor="let item of listeTypeClient" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formModal.controls.typeClient.invalid">veuillez saisir le type client</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Offre</mat-label>
+                <mat-select formControlName="offreId" name="offreId" placeholder="Veuillez choisir l'offre">
+                    <mat-option *ngFor="let item of listeParamsOffre" [value]="item.id">{{item.libelle}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formModal.controls.typeClient.invalid">veuillez saisir l'offre</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Nd</mat-label>
+                <input matInput formControlName="nd" name="nd" mask="00 00 00 00 00">
+                <mat-error *ngIf="formModal.controls.nd.invalid">veuillez saisir nd</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Mac</mat-label>
+                <input matInput formControlName="mac" name="mac">
+                <mat-error *ngIf="formModal.controls.nd.invalid">veuillez saisir mac</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Sn</mat-label>
+                <input matInput formControlName="sn" name="sn">
+                <mat-error *ngIf="formModal.controls.sn.invalid">veuillez saisir sn</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Ip</mat-label>
+                <input matInput formControlName="ip" name="ip">
+                <mat-error *ngIf="formModal.controls.ip.invalid">veuillez saisir ip</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Mask</mat-label>
+                <input matInput formControlName="mask" name="mask">
+                <mat-error *ngIf="formModal.controls.mask.invalid">veuillez saisir mask</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Commentaire</mat-label>
+                <input matInput formControlName="commentaire" name="commentaire">
+                <mat-error *ngIf="formModal.controls.commentaire.invalid">veuillez saisir commentaire</mat-error>
+            </mat-form-field>
+            
+            <!-- <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label>Localisation</mat-label>
+                <input matInput formControlName="localisation" name="localisation">
+                <mat-error *ngIf="formModal.controls.localisation.invalid">veuillez saisir la localisation</mat-error>
+            </mat-form-field> -->
+        </div>
+    </form>
+</div>
+<div mat-dialog-Modules fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" class="button"
+    [disabled]="!formModal.valid" (click)="onSubmit(formModal.value)">Valider</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

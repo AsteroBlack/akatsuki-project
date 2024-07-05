@@ -1,0 +1,488 @@
+<div class="content">
+    <div class="container-fluid bg-white">
+        <div class="bg-white" fxLayout="row" fxLayout.xs="column">
+            <div class="col-md-12 col-lg-12 col-xl-12">
+                <mat-card class="bg-white hv-100 text-dark">
+                    <div fxLayout="row" fxLayoutAlign="space-between center"
+                        class="card-header bg-white card-header-primary">
+                        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                            <!-- <mat-form-field appearance="outline">
+                                <mat-label class="text-dark">Filter</mat-label>
+                                <input matInput (keyup)="applyFilter($event)" [(ngModel)]="searchData.nom"
+                                    placeholder="Rechercher ici!">
+                            </mat-form-field> -->
+                            <mat-form-field appearance="outline">
+                                <mat-label class="text-dark">Port</mat-label>
+                                <input matInput [(ngModel)]="searchData.port" placeholder="Ex:OAGR401:1-1-7-5">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <!-- <mat-label>Techno</mat-label> -->
+                                 <mat-label class="text-dark">Techno</mat-label>
+                                <mat-select [(ngModel)]="searchData.techno" placeholder="Veuillez choisir une techno">
+                                    <!-- <mat-option value="1">PON</mat-option> -->
+                                    <mat-option *ngFor="let item of listeTechnos" [value]="item.id">{{item.libelle}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <mat-form-field appearance="outline">
+                                 <mat-label class="text-dark">Type OLT</mat-label>
+                                <mat-select [(ngModel)]="searchData.oltTypeId" name="oltTypeId" placeholder="Veuillez choisir un OLT">
+                                    <mat-option value="">Aucun OLT</mat-option>
+                                    <mat-option *ngFor="let item of listeTypeOlt" [value]="item.id">{{item.libelle}}</mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                            <mat-form-field appearance="outline">
+                                <mat-label class="text-dark">cluster/pb</mat-label>
+                                <input matInput [(ngModel)]="searchData.pb" placeholder="Ex:AZI101/PB005">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                 <mat-label class="text-dark">Etat</mat-label>
+                                <mat-select [(ngModel)]="searchData.etat" name="etat" placeholder="Veuillez choisir un état">
+                                    <mat-option value="">Aucun état</mat-option>
+                                    <mat-option *ngFor="let item of listeEtats" [value]="item.id">{{item.libelle}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxlayoutalign="space-between center">
+
+
+                            <mat-icon style="padding-top: 8px;" (click)="rechercher()" class="focus-cursor mx-3" aria-hidden="false"
+                                title="Rechercher ressources" [inline]="true" aria-label="Example search icon">
+                                search
+                            </mat-icon>
+
+                            <mat-icon style="padding-top: 8px;" *ngIf="testMenu('SUPPRIMER_RESSOURCES')" (click)="askBeforeDelete()" class="focus-cursor mx-3" aria-hidden="false"
+                                title="Rechercher ressources" [inline]="true" aria-label="Example delete_forever icon">
+                                delete_forever
+                            </mat-icon>
+                            <mat-icon style="padding-top: 8px;" *ngIf="testMenu('EXPORTER_RESSOURCES')" (click)="exportRessources()" class="focus-cursor mx-3" aria-hidden="false"
+                                title="Télécharger ressources" [inline]="true" aria-label="Example save_alt icon">
+                                save_alt
+                            </mat-icon>
+                                <mat-icon style="padding-top: 8px;" *ngIf="testMenu('IMPORTER_RESSOURCES')"  class="focus-cursor" (click)="uploadRessource()" aria-hidden="false"
+                                title="Importer ressources" [inline]="true" aria-label="Example upload_file icon">
+                                upload_file</mat-icon>
+
+                                <button style="display: inline !important; margin-left: 5px;"  class="btn btn-dark rounded-0" *ngIf="testMenu('ATTRIBUER_RESSOURCES')" (click)="openAttributionModal()">Attribution</button>
+                        </div>
+                    </div>
+                    <mat-card-content class="bg-white">
+                        <div class="table-container">
+
+                            <table mat-table [dataSource]="listeRessourcesDisruptive"
+                                class="mat-tablo mat-elevation-z8 bg-white text-dark">
+                                <!-- Checkbox Column -->
+                                <ng-container matColumnDef="selection">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox (click)="selectionAllRow($event)" [(ngModel)]="selectedAll">
+                                    </mat-checkbox>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element;let i = index;">
+                                    <mat-checkbox [(ngModel)]="element.checked"
+                                                    (click)="selectionRow(element, i)">
+                                    </mat-checkbox>
+                                    </td>
+                                </ng-container>
+                                <!-- num Column -->
+                                <!-- <ng-container matColumnDef="num">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> No. </th>
+                                    <td class="" mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </td>
+                                </ng-container> -->
+
+                                <!-- oltTypeLibelle Column -->
+                                <ng-container matColumnDef="oltTypeLibelle">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Type olt </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.oltTypeLibelle}} </td>
+                                </ng-container>
+
+                                 <!-- techno Column -->
+                                <ng-container matColumnDef="technoLibelle">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Techno </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.technoLibelle}} </td>
+                                </ng-container>
+
+                                 <!-- model Column -->
+                                <ng-container matColumnDef="modelCarteLibelle">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Model </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.modelCarteLibelle}} </td>
+                                </ng-container>
+
+                                <!-- Olt Column -->
+                                <ng-container matColumnDef="oltLibelle">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef>Nom Olt </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.oltLibelle}} </td>
+                                </ng-container>
+
+                                <!-- nom Column -->
+                                <ng-container matColumnDef="nom">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Nom </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.nom}} </td>
+                                </ng-container>
+
+                                <!-- chassis Column -->
+                                <ng-container matColumnDef="chassis">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Chassis </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.chassis}} </td>
+                                </ng-container>
+
+                                <!-- Carte Column -->
+                                <ng-container matColumnDef="carte">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Carte GPON </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.carte}} </td>
+                                </ng-container>
+
+                                <!-- Port Column -->
+                                <ng-container matColumnDef="port">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Port </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.port}} </td>
+                                </ng-container>
+
+                                <!-- Ont Column -->
+                                <ng-container matColumnDef="ont">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Ont </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.ont}} </td>
+                                </ng-container>
+
+                                <!-- typeCarteLibelle Column -->
+                                <ng-container matColumnDef="typeCarteLibelle">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Type carte </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.typeCarteLibelle}} </td>
+                                </ng-container>
+
+                                <!-- plaqueLibelle Column -->
+                                <ng-container matColumnDef="plaqueLibelle">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Plaque  </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.plaqueLibelle}} </td>
+                                </ng-container>
+
+                                <!-- secteutLibelle Column -->
+                                <ng-container matColumnDef="secteutLibelle">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Secteur  </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.secteutLibelle}} </td>
+                                </ng-container>
+
+                                <!-- quartierLibelle Column -->
+                                <ng-container matColumnDef="quartierLibelle">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Quartier </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.quartierLibelle}} </td>
+                                </ng-container>
+
+                                <!-- pdTypeLibelle Column -->
+                                <ng-container matColumnDef="pdTypeLibelle">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Pd type </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.pdTypeLibelle}}
+                                    </td>
+                                </ng-container>
+
+                                <!-- cluster Column -->
+                                <ng-container matColumnDef="cluster">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Cluster </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.cluster}} </td>
+                                </ng-container>
+
+                                <!-- pdNomTiroir Column -->
+                                <ng-container matColumnDef="pdNomTiroir">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Pd Nom tiroir </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.pdNomTiroir}} </td>
+                                </ng-container>
+
+                                <!-- pdPlot Column -->
+                                <ng-container matColumnDef="pdPlot">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> PD plot </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.pdPlot}} </td>
+                                </ng-container>
+
+                                <!-- pdCoupleur Column -->
+                                <ng-container matColumnDef="pdCoupleur">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> PD coupleur </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.pdCoupleur}} </td>
+                                </ng-container>
+
+                                <!-- pdEtatTransp Column -->
+                                <ng-container matColumnDef="pdEtatTranspLibelle">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef>Etat transport </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.pdEtatTranspLibelle}} </td>
+                                </ng-container>
+
+                                <!-- siteLibelle Column -->
+                                <ng-container matColumnDef="siteLibelle">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Site PB </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.siteLibelle}} </td>
+                                </ng-container>
+
+                                <!-- pbNomTiroir Column -->
+                                <ng-container matColumnDef="pbNomTiroir">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Nom tiroir </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.pbNomTiroir}} </td>
+                                </ng-container>
+
+                                <!-- pbPlot Column -->
+                                <ng-container matColumnDef="pbPlot">
+                                    <th class="pl-0" class="" mat-header-cell *matHeaderCellDef> PB plot </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.pbPlot}} </td>
+                                </ng-container>
+
+                                <!-- fibreDistribution Column -->
+                                <ng-container matColumnDef="fibreDistribution">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Fibre de distribution </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.fibreDistribution}} </td>
+                                </ng-container>
+
+                                <!-- paramTypePbSiteLibelle Column -->
+                                <ng-container matColumnDef="paramTypePbSiteLibelle">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Type pb site </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.paramTypePbSiteLibelle}} </td>
+                                </ng-container>
+
+                                <!-- etat Column -->
+                                <ng-container matColumnDef="paramEtatLibelle">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> État distribution </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.paramEtatLibelle}} </td>
+                                </ng-container>
+
+                                <!-- pbNom Column -->
+                                <ng-container matColumnDef="pbNom">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Ref PB</th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.pbNom}} </td>
+                                </ng-container>
+
+                                <!-- pbCoupleur Column -->
+                                <ng-container matColumnDef="pbCoupleur">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> PB Coupleur</th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.pbCoupleur}} </td>
+                                </ng-container>
+
+                                <!-- pbCassette Column -->
+                                <ng-container matColumnDef="pbCassette">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> PB cassette </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.pbCassette}} </td>
+                                </ng-container>
+
+                                <!-- sortieCoupleur column -->
+                                <ng-container matColumnDef="sortieCoupleur">
+                                  <th class="pl-0" mat-header-cell *matHeaderCellDef> Sortie coupleur </th>
+                                  <td class="pl-0" mat-cell *matCellDef="let element"> {{element.sortieCoupleur}} </td>
+                                </ng-container>
+
+                                <!-- paramColorLibelle Column -->
+                                <ng-container matColumnDef="paramColorLibelle">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Param couleur </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.paramColorLibelle}} </td>
+                                </ng-container>
+
+                                <!-- clientIdClient Column -->
+                                <ng-container matColumnDef="clientIdClient">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef>ID client </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.clientIdClient}} </td>
+                                </ng-container>
+
+                                <!-- baie Column -->
+                                <!-- <ng-container matColumnDef="baie">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Baie </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.baie}} </td>
+                                </ng-container> -->
+
+                                <ng-container matColumnDef="clientNomClient">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Client </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.clientNomClient}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="clientSnClient">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Sn </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.clientSnClient}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="clientMacClient">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Mac </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.clientMacClient}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="clientNdClient">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Nd </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.clientNdClient}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="clientLoginClient">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Login </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.clientLoginClient}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="clientIdDossierClientLib">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> ID Dossier </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.clientIdDossierClientLib}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="clientIpClient">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> IP  </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.clientIpClient}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="clientMaskClient">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Mask  </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.clientMaskClient}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="clientVlanClient">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Vlan  </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.clientVlanClient}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="clientOffreCodeClient">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Code offre  </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.clientOffreCodeClient}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="ClientOffreLibClient">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Libelle Offre  </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.ClientOffreLibClient}} </td>
+                                </ng-container>
+
+
+                                <ng-container matColumnDef="clientTypeClientCode">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> type Client  </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.clientTypeClientCode}} </td>
+                                </ng-container>
+
+                                <!-- Ports Column -->
+                                <!-- <ng-container matColumnDef="ports">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Ports </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.ports}} </td>
+                                </ng-container> -->
+
+                                <!-- typeOlt Column -->
+                                <!-- <ng-container matColumnDef="typeOlt">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Type Olt </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.typeOlt}} </td>
+                                </ng-container> -->
+
+                                <!-- type sro Column -->
+                                <!-- <ng-container matColumnDef="typeSro">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> type Sro </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.typeSro}} </td>
+                                </ng-container> -->
+
+                                <!-- sro Column -->
+                                <!-- <ng-container matColumnDef="sro">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Sro </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.sro}} </td>
+                                </ng-container> -->
+
+                                <!-- type tiroir Column -->
+                                <!-- <ng-container matColumnDef="typeTiroir">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Type tiroir </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.typeTiroir}} </td>
+                                </ng-container> -->
+
+                                <!-- cbFibre Column -->
+                                <!-- <ng-container matColumnDef="cbFibre">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> CB Fibre </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.cbFibre}} </td>
+                                </ng-container> -->
+
+                                <!-- cbNom Column -->
+                                <!-- <ng-container matColumnDef="cbNom">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> CB Nom </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.cbNom}} </td>
+                                </ng-container> -->
+
+                                <!-- clusterSiteLibelle Column -->
+                                <!-- <ng-container matColumnDef="clusterSiteLibelle">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Cluster site </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.clusterSiteLibelle}} </td>
+                                </ng-container> -->
+
+                                <!-- Techno Column -->
+                                <!-- <ng-container matColumnDef="techno">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Techno </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.technoLibelle}} </td>
+                                </ng-container> -->
+
+                                <!-- nom tiroir Column -->
+                                <!-- <ng-container matColumnDef="nomTiroir">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Nom tiroir </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.nomTiroir}} </td>
+                                </ng-container> -->
+
+                                <!-- plot Column -->
+                                <!-- <ng-container matColumnDef="plot">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> plot </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.plot}} </td>
+                                </ng-container> -->
+
+                                <!-- pdBrin Column -->
+                                <!-- <ng-container matColumnDef="pdBrin">
+                                    <th class="pl-0" class="" mat-header-cell *matHeaderCellDef> Pd brin </th>
+                                    <td class="pl-0" class="" mat-cell *matCellDef="let element"> {{element.pdBrin}} </td>
+                                </ng-container> -->
+
+                                <!-- ptoFibre Column -->
+                                <!-- <ng-container matColumnDef="ptoFibre">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Pto fibre </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.ptoFibre}} </td>
+                                </ng-container> -->
+
+                                <!-- ptoNom Column -->
+                                <!-- <ng-container matColumnDef="ptoNom">
+                                    <th class=" pl-0" mat-header-cell *matHeaderCellDef> Pto nom </th>
+                                    <td class=" pl-0" mat-cell *matCellDef="let element"> {{element.ptoNom}} </td>
+                                </ng-container> -->
+
+                                <!-- client Column -->
+                                <!-- <ng-container matColumnDef="client">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Client </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.client}} </td>
+                                </ng-container> -->
+
+                                <!-- nd Column -->
+                                <!-- <ng-container matColumnDef="nd">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> ND </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.nd}} </td>
+                                </ng-container> -->
+
+                                <!-- nd Column -->
+                                <!-- <ng-container matColumnDef="sn">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> SN </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.sn}} </td>
+                                </ng-container> -->
+
+                                <!-- mac Column -->
+                                <!-- <ng-container matColumnDef="mac">
+                                    <th class="pl-0" mat-header-cell *matHeaderCellDef> Mac </th>
+                                    <td class="pl-0" mat-cell *matCellDef="let element"> {{element.mac}} </td>
+                                </ng-container> -->
+
+                                <!-- option Column -->
+                                <ng-container matColumnDef="options">
+                                    <th mat-header-cell *matHeaderCellDef> Option </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <div fxLayout="row" fxLayoutAlign="space-around center">
+                                            <mat-icon class="focus-cursor" (click)="openModal(element)" *ngIf="testMenu('MODIFIER_RESSOURCES')"
+                                                aria-hidden="false" title="Modifier" [inline]="true"
+                                                aria-label="Example mode icon">
+                                                mode
+                                            </mat-icon>
+                                            <mat-icon class="focus-cursor" (click)="askBeforeDelete(element)" *ngIf="testMenu('SUPPRIMER_RESSOURCES')"
+                                                aria-hidden="false" title="Supprimer" [inline]="true"
+                                                aria-label="Example delete_forever icon">delete_forever</mat-icon>
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                <!-- <tr mat-footer-row  *ngIf="listeRessourcesDisruptive.length==0">
+                                    <td colspan="28">Aucune donnée</td>
+                                </tr> -->
+                            </table>
+                            <div *ngIf="!listeRessourcesDisruptive || !listeRessourcesDisruptive.length" class="w-100 text-center py-3">
+                                Aucune donnée
+                            </div>
+                            <mat-paginator *ngIf="listeRessourcesDisruptive && listeRessourcesDisruptive.length" [pageSizeOptions]="[5, 10, 20, 40, 80]" [pageIndex]="page.index"
+                                [pageSize]="page.size" [length]="page.total" (page)="paginationChange($event)"
+                                showFirstLastButtons></mat-paginator>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

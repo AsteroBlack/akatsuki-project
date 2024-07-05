@@ -1,0 +1,110 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>Générer un nombre d'adresse</h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <div *ngIf="!displayResponse">
+        <button *ngIf="displayResponseRight" (click)="(displayResponse = displayResponseRight)">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </button>
+        <form [formGroup]="formModal" (ngSubmit)="onSubmit(formModal.value)" class="form">
+            <div fxLayout="row wrap" fxLayoutGap="10px">
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label class="text-white">Nombre d'adresse</mat-label>
+                    <input matInput type="number" formControlName="nbreAddr" name="nbreAddr">
+                    <mat-error *ngIf="formModal.controls.nbreAddr.errors?.required">veuillez saisir le nombre adresse</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard" fxFlex="100">
+                    <mat-label class="text-white">Identifiant</mat-label>
+                    <!-- <input matInput formControlName="nd" name="nd"> -->
+                    <input matInput mask="00000000000" formControlName="nd" name="nd" [dropSpecialCharacters]="false">
+                    <mat-error *ngIf="formModal.controls.nd.errors?.required">veuillez saisir l'identifiant</mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+    <div class="row" *ngIf="displayResponse">
+        <button (click)="(displayResponse = null)">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <div class="text-center w-100 text-success">
+            <h2>Détail de la génération</h2>
+            <!-- <i class="fa fa-5x fa-check-circle-o" aria-hidden="true"></i> -->
+            <!-- <img src="../../../../assets/img/check-green.png" class="w-50" alt=""> -->
+        </div>
+        <div class="col-12 d-flex form-inline">
+            <div class="col-6">
+                <div class="form-group py-2">
+                    <label for="nd">ND</label>
+                    <div class="ml-2 font-weight-bold">{{displayResponse?.nd}}</div>
+                </div>
+                <div class="form-group py-2">
+                    <label for="nd">Adresse</label>
+                    <div class="ml-2 font-weight-bold">{{displayResponse?.address}}</div>
+                </div>
+                <div class="form-group py-2">
+                    <label for="nd">Adresse de début: </label>
+                    <div class="ml-2 font-weight-bold">{{displayResponse?.beginAddr}}</div>
+                </div>
+                <div class="form-group py-2">
+                    <label for="nd">Gateway:</label>
+                    <div class="ml-2 font-weight-bold">{{displayResponse && displayResponse?.gateway}}</div>
+                </div>
+                <div class="form-group py-2">
+                    <label for="nd">Cidr adresse</label>
+                    <div class="ml-2 font-weight-bold">{{displayResponse?.cidrAddress}}</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group py-2">
+                    <label for="nd">Nbre Addr</label>
+                    <div class="ml-2 font-weight-bold">{{displayResponse?.nbreAddr}}</div>
+                </div>
+                <div class="form-group py-2">
+                    <label for="nd">Broadcast adresse</label>
+                    <div class="ml-2 font-weight-bold">{{displayResponse?.broadcastAddr}}</div>
+                </div>
+                <div class="form-group py-2">
+                    <label for="nd">Adresse de fin</label>
+                    <div class="ml-2 font-weight-bold">{{displayResponse?.endAddr}}</div>
+                </div>
+                <div class="form-group py-2">
+                    <label for="nd">Customer mask</label>
+                    <div class="ml-2 font-weight-bold">{{displayResponse && displayResponse?.customerMask}}</div>
+                </div>
+                <div class="form-group py-2">
+                    <label for="nd">Mask</label>
+                    <div class="ml-2 font-weight-bold">{{displayResponse?.mask}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <!-- <button mat-raised-button color="primary" type="submit" class="button"
+    [disabled]="!formModal.valid" (click)="onSubmit(formModal.value)">Valider</button> -->
+    <button *ngIf="formModal.valid" mat-raised-button color="primary" type="submit" class="button"
+     (click)="onSubmit(formModal)">Valider</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>
+
+<!-- ipAddressBand: {address: "160.155.70.48", mask: "255.255.255.240", cidrMask: 28, cidrAddress: "160.155.70.48/28",…}
+address: "160.155.70.48"
+bandFound: true
+beginAddr: "160.155.70.49"
+broadcastAddr: "160.155.70.63"
+cidrAddress: "160.155.70.48/28"
+cidrMask: 28
+codeTypeClient: "RES"
+codeZone: "OREP"
+customerMask: "255.255.255.240"
+endAddr: "160.155.70.62"
+gateway: "160.155.70.1"
+libelleClient: "OREP-RES-FTTH"
+libelleService: "FTTH"
+mask: "255.255.255.240"
+nbreAddr: 16
+nd: "22542406"
+offerGroupCode: "BASIC"
+offerGroupLibelle: "Basique" -->

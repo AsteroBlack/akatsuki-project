@@ -1,0 +1,30 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title class="text-white">Type Attribut</h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="formModal" (ngSubmit)="onSubmit(formModal.value)" class="form">
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label class="text-white">Code type </mat-label>
+                <mat-select class="text-dark" formControlName="code" name="code" placeholder="Veuillez choisir un code">
+                    <mat-option [value]="'prepaid'">Prepaid</mat-option>
+                    <mat-option [value]="'postpaid'">Postpaid</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label class="text-white">Attribut</mat-label>
+                <mat-select class="text-dark" formControlName="attributId" name="attributId" placeholder="Veuillez choisir un attribut">
+                    <mat-option *ngFor="let item of listeTypeAttribut" [value]="item.id">{{item.attribut}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="formModal.controls.attributId.invalid">veuillez saisir l'attribut</mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" class="button"
+    [disabled]="!formModal.valid" (click)="onSubmit(formModal.value)">Valider</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

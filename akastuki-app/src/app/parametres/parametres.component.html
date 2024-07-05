@@ -1,0 +1,8 @@
+<div style="margin-bottom:15px;">
+    <ul style="background: #343A40; color: white;">
+        <ng-container *ngFor="let item of listMenu">
+            <li  *ngIf="!item.hidden" (click)="onSelectMenu(item.key)" [class.isSelect]='activeMenu == item.key'   style="cursor: pointer; text-transform: capitalize;">{{item.key}}</li>
+        </ng-container>
+    </ul>
+</div>
+<router-outlet></router-outlet>

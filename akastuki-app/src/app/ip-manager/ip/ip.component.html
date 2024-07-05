@@ -1,0 +1,160 @@
+<div class="content">
+    <div class="container-fluid bg-white">
+        <div class="bg-white" fxLayout="row" fxLayout.xs="column">
+            <div class="col-md-12 col-lg-12 col-xl-12">
+                <mat-card class="bg-white hv-100 text-dark">
+                    <div fxLayout="row" fxLayoutAlign="space-between center"
+                        class="card-header bg-white card-header-primary">
+                        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+
+                            <mat-form-field appearance="outline">
+                                <mat-label class="text-dark">Libelle</mat-label>
+                                <input matInput name="libelle" [(ngModel)]="searchData.libelle"
+                                    placeholder="Rechercher ici!">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label class="text-dark">nb</mat-label>
+                                <input matInput name="libelle" [(ngModel)]="searchData.nb"
+                                    placeholder="Rechercher ici!">
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxlayoutalign="space-between center">
+                            <mat-icon (click)="rechercher()" class="focus-cursor mx-3" aria-hidden="false"
+                                title="Rechercher" aria-label="Example search icon">
+                                search</mat-icon>
+
+                            <mat-icon *ngIf="testMenu('CREER_IP')" class="focus-cursor mx-3" (click)="openModal(true)"
+                                aria-hidden="false" title="Nouveau" aria-label="Example create_new_folder icon">
+                                create_new_folder</mat-icon>
+
+                            <mat-icon class="focus-cursor" (click)="openModalIpBlocage(true)"
+                            aria-hidden="false" title="Migration" aria-label="Example create_new_folder icon">
+                            autorenew</mat-icon>
+                        </div>
+                    </div>
+                    <mat-card-content class="bg-white">
+                        <div class="table-container">
+                            <mat-accordion>
+                                <mat-expansion-panel *ngFor="let item of listeIp" (opened)="item.opened = true"
+                                    (closed)="item.opened = false">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            {{item.libelle}}
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                            <mat-icon *ngIf="testMenu('GENERER_IP')" (click)="ajout(item)">add
+                                            </mat-icon>
+                                            <mat-icon *ngIf="testMenu('MODIFIER_IP')" (click)="openModal(item)">
+                                                mode_edit</mat-icon>
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <table mat-table [dataSource]="item.itemsIpDtobands"
+                                        class="mat-tablo mat-elevation-z8 bg-white text-dark">
+                                        <!-- num Column -->
+                                        <ng-container matColumnDef="num">
+                                            <!-- <mat-header-cell *matHeaderCellDef> Index </mat-header-cell>
+                                                    <mat-cell *matCellDef="let element; let i = index;">{{i}}</mat-cell> -->
+                                            <th class="td-small" mat-header-cell *matHeaderCellDef> No. </th>
+                                            <td class="td-small" mat-cell *matCellDef="let element;let i = index;">
+                                                {{i+1}} </td>
+                                        </ng-container>
+
+                                        <!-- ipAddress Column -->
+                                        <ng-container matColumnDef="ipAddress">
+                                            <th mat-header-cell *matHeaderCellDef> Ip </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.ipAddress}} </td>
+                                        </ng-container>
+
+                                        <!-- mask Column -->
+                                        <ng-container matColumnDef="mask">
+                                            <th mat-header-cell *matHeaderCellDef> Mask </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.mask}} </td>
+                                        </ng-container>
+
+                                        <!-- cidrMask Column -->
+                                        <!-- <ng-container matColumnDef="cidrMask">
+                                                    <th class="td-small-60" mat-header-cell *matHeaderCellDef> cidrMask </th>
+                                                    <td class="td-small-60" mat-cell *matCellDef="let element"> {{element.cidrMask}} </td>
+                                                </ng-container> -->
+
+                                        <!-- gateway Column -->
+                                        <ng-container matColumnDef="gateway">
+                                            <th mat-header-cell *matHeaderCellDef> Gateway </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.gateway}} </td>
+                                        </ng-container>
+
+                                        <!-- beginAddr Column -->
+                                        <ng-container matColumnDef="beginAddr">
+                                            <th mat-header-cell *matHeaderCellDef> beginAddr </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.beginAddr}} </td>
+                                        </ng-container>
+
+                                        <!-- endAddr Column -->
+
+                                        <ng-container matColumnDef="endAddr">
+                                            <th mat-header-cell *matHeaderCellDef> endAddr </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.endAddr}} </td>
+                                        </ng-container>
+
+                                        <!-- broadcastAddr Column -->
+                                        <ng-container matColumnDef="broadcast">
+                                            <th mat-header-cell *matHeaderCellDef> broadcast </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.broadcast}} </td>
+                                        </ng-container>
+
+                                        <!-- NbreAdresseDispo Column -->
+                                        <ng-container matColumnDef="NbreAdresseDispo">
+                                            <th mat-header-cell *matHeaderCellDef> Nbre adresse dispo </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.unUsed}} </td>
+                                        </ng-container>
+
+                                        <!-- option Column -->
+                                        <ng-container matColumnDef="options">
+                                            <th class="td-small-60" mat-header-cell *matHeaderCellDef> Option </th>
+                                            <td class="td-small-60" mat-cell *matCellDef="let element">
+                                                <div fxLayout="row" fxLayoutAlign="space-around center">
+                                                    <mat-icon  class="focus-cursor"
+                                                        (click)="openModal(false, element)" aria-hidden="false"
+                                                        title="Importer ressources" [inline]="true"
+                                                        aria-label="Example mode icon">mode</mat-icon>
+                                                    
+                                                        <mat-icon  class="focus-cursor"
+                                                        (click)="openModalIpBlocage(false, element)" aria-hidden="false"
+                                                        title="Bloquer adresse" [inline]="true"
+                                                        aria-label="Example mode icon">lock</mat-icon>
+
+                                                    <mat-icon class="focus-cursor" (click)="ipPoolDetails(element)"
+                                                        aria-hidden="false" title="Voir Pool" [inline]="true"
+                                                        aria-label="Example visibility icon">visibility</mat-icon>
+                                                    <!-- *ngIf="element.unUsed === 253 " -->
+                                                    <mat-icon  class="focus-cursor"
+                                                        (click)="askBeforeDelete(element)" aria-hidden="false"
+                                                        title="Supprimer" [inline]="true"
+                                                        aria-label="Example delete_forever icon">
+                                                        delete_forever
+                                                    </mat-icon>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="ipArrayColumn"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: ipArrayColumn;"></tr>
+                                    </table>
+                                </mat-expansion-panel>
+                                <div *ngIf="listeIp && listeIp.length==0" class="w-100 text-center py-3">
+                                    Aucune donnée
+                                </div>
+                            </mat-accordion>
+                            <mat-paginator *ngIf="listeIp && listeIp.length>0" [pageSizeOptions]="[5, 10, 20]"
+                                [pageIndex]="page.index" [pageSize]="page.size" [length]="page.total"
+                                (page)="paginationChange($event)" showFirstLastButtons></mat-paginator>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+
+        
+    </div>
+</div>

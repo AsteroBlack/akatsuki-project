@@ -1,0 +1,116 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>Pool d'adresse IP</h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <mat-accordion>
+        <mat-expansion-panel *ngIf="itemsIpAddrPoolDto">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Adresses de réseau utilisées ({{dataAddressInIpBand?.itemsIpAddrPoolDto?.length}})
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <table mat-table [dataSource]="itemsIpAddrPoolDto"
+                        class="mat-tablo mat-elevation-z8 bg-white text-dark w-100">
+                        <!-- num Column -->
+                        <ng-container matColumnDef="num">
+                            <th class="td-small" mat-header-cell *matHeaderCellDef> No. </th>
+                            <td class="td-small" mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </td>
+                        </ng-container>
+
+                        <!-- ipAddress Column -->
+                        <ng-container matColumnDef="network">
+                            <th mat-header-cell *matHeaderCellDef> Network </th>
+                            <td mat-cell *matCellDef="let element"> {{element.beginIpAddr}}/{{element.cidrMask}} </td>
+                        </ng-container>
+
+                        <!-- broadcastAddr Column -->
+                        <ng-container matColumnDef="broadcast">
+                            <th mat-header-cell *matHeaderCellDef> broadcastAddr </th>
+                            <td mat-cell *matCellDef="let element"> {{element.endIpAddr}} </td>
+                        </ng-container>
+
+                        <!-- Abonnée Column -->
+                        <ng-container matColumnDef="user">
+                            <th mat-header-cell *matHeaderCellDef> Abonnée </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nd}} </td>
+                        </ng-container>
+
+                        <!-- option Column -->
+                        <ng-container matColumnDef="options">
+                            <th class="td-small-60" mat-header-cell *matHeaderCellDef> Total </th>
+                            <td class="td-small-60" mat-cell *matCellDef="let element">{{element.nbreIpAddr}}
+                                <div fxLayout="row" fxLayoutAlign="space-around center">
+                                    <!-- <mat-icon class="focus-cursor" (click)="openModal(element)"
+                                        aria-hidden="false" title="Importer ressources" [inline]="true"
+                                        aria-label="Example mode icon">mode</mat-icon> -->
+                                    <!-- <mat-icon class="focus-cursor" (click)="ipPoolDetails(element)"
+                                        aria-hidden="false" title="Importer ressources" [inline]="true"
+                                        aria-label="Example delete_forever icon">delete_forever</mat-icon> -->
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="ipPoolArrayColumn"></tr>
+                        <tr mat-row *matRowDef="let row; columns: ipPoolArrayColumn;"></tr>
+                    </table>
+                    <mat-paginator *ngIf="itemsIpAddrPoolDto && itemsIpAddrPoolDto.length>0" [pageSizeOptions]="[5, 10, 20]" [pageIndex]="pagePool.index"
+                        [pageSize]="pagePool.size" [length]="pagePool.total" (page)="pollPaginationChange($event)"
+                        showFirstLastButtons></mat-paginator>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="itemsIpAddrUniqDto">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Adresse IP utilisées ({{dataAddressInIpBand?.itemsIpAddrUniqDto?.length}})
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <table mat-table
+            [dataSource]="itemsIpAddrUniqDto"
+                        class="mat-tablo mat-elevation-z8 bg-white text-dark w-100">
+                        <!-- num Column -->
+                        <ng-container matColumnDef="num">
+                            <th class="td-small" mat-header-cell *matHeaderCellDef> No. </th>
+                            <td class="td-small" mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </td>
+                        </ng-container>
+
+                        <!-- ipAddress Column -->
+                        <ng-container matColumnDef="network">
+                            <th mat-header-cell *matHeaderCellDef> Network </th>
+                            <td mat-cell *matCellDef="let element"> {{element.ipAddress}} </td>
+                        </ng-container>
+
+                        <!-- mask Column -->
+                        <ng-container matColumnDef="mask">
+                            <th mat-header-cell *matHeaderCellDef> Mask </th>
+                            <td mat-cell *matCellDef="let element"> {{element.mask}} </td>
+                        </ng-container>
+
+                        <!-- Abonnée Column -->
+                        <ng-container matColumnDef="user">
+                            <th mat-header-cell *matHeaderCellDef> Abonné </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nd}} </td>
+                        </ng-container>
+
+                        <!-- option Column -->
+                        <!-- <ng-container matColumnDef="options">
+                            <th class="td-small-60" mat-header-cell *matHeaderCellDef> Option </th>
+                            <td class="td-small-60" mat-cell *matCellDef="let element">
+                                <div fxLayout="row" fxLayoutAlign="space-around center">
+
+                                </div>
+                            </td>
+                        </ng-container> -->
+                        <tr mat-header-row *matHeaderRowDef="ipUnipArrayColumn"></tr>
+                        <tr mat-row *matRowDef="let row; columns: ipUnipArrayColumn;"></tr>
+                    </table>
+                    <mat-paginator *ngIf="itemsIpAddrUniqDto && itemsIpAddrUniqDto.length>0" [pageSizeOptions]="[5, 10, 20]" [pageIndex]="pageUniq.index"
+                        [pageSize]="pageUniq.size" [length]="pageUniq.total" (page)="uniqPaginationChange($event)"
+                        showFirstLastButtons></mat-paginator>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <!-- <button mat-raised-button color="primary" type="submit" class="button"
+     (click)="onSubmit(formModal.value)">Valider</button> -->
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>

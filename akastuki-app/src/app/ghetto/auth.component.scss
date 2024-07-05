@@ -1,0 +1,38 @@
+:host{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // background: #ff9000;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    h1{
+        // Adjust margin-bottom:
+        margin-bottom: 1rem;
+    }
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #000 !important;
+  }
+
+  .w-img-logo{
+    width: 25%;
+    position: absolute;
+}
+
+.h-60{
+    height: 60px;
+}
+
+.titre-card{
+    display: flex;
+    justify-content: center;
+}
+.table-container{
+    max-height: 800px
+  }

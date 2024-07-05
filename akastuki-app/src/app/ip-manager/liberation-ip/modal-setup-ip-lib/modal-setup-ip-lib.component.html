@@ -1,0 +1,34 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between top">
+    <h1 mat-dialog-title>Générer un nombre d'adresse</h1>
+    <button class="close text-white" mat-button (click)="onNoClick()">X</button>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="formModal" (ngSubmit)="onSubmit(formModal.value)" class="form">
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label class="text-white">Adresse</mat-label>
+                <!-- <input matInput pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(0)$" formControlName="address" name="address"> -->
+                <input matInput mask="IP" formControlName="address" name="address"
+                                    placeholder="Ex: 225.225.255.2" [dropSpecialCharacters]="false">
+                <mat-error *ngIf="formModal.controls.address.errors?.required">veuillez saisir l'adresse</mat-error>
+                <mat-error *ngIf="formModal.controls.address.errors?.pattern">Format IP invalide Ex: 160.230.021.0</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="standard" fxFlex="100">
+                <mat-label class="text-white">Identifiant</mat-label>
+                <!-- <input matInput formControlName="mask" name="mask"
+                pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"> -->
+                <input matInput mask="00 00 00 00" formControlName="mask" name="mask" [dropSpecialCharacters]="false">
+                <!-- <input matInput formControlName="mask" name="mask"
+                pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"> -->
+                <mat-error *ngIf="formModal.controls.mask.errors?.required">veuillez saisir le masque</mat-error>
+                <mat-error *ngIf="formModal.controls.mask.errors?.pattern">Format IP invalide Ex: 160.230.021.0</mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" class="button"
+    [disabled]="!formModal.valid" (click)="onSubmit(formModal.value)">Valider</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Valider</button> -->
+</div>
