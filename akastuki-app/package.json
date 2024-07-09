@@ -32,7 +32,7 @@
     "@angular/router": "~11.0.5",
     "@fortawesome/angular-fontawesome": "^0.8.2",
     "@fortawesome/fontawesome-free": "^5.15.2",
-    "@frxjs/ngx-timeline": "^1.1.0",
+    "@frxjs/ngx-timeline": "1.1.0",
     "@ng-select/ng-select": "^6.1.0",
     "@ngx-loading-bar/core": "^5.1.1",
     "@ngx-loading-bar/http-client": "^5.1.1",
@@ -71,7 +71,7 @@
     "@angular/compiler-cli": "~11.0.5",
     "@types/file-saver": "^2.0.1",
     "@types/jasmine": "~3.6.0",
-    "@types/lodash": "^4.14.168",
+    "@types/lodash": "4.14.186",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
@@ -85,5 +85,9 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.2"
+  },
+  "overrides": {
+    "@types/lodash": "4.14.186"
   }
 }
+
