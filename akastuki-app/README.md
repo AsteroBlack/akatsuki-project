@@ -1,6 +1,6 @@
 # Akatsuki App 1
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5. Node 12.22 est utilisé pour le build de de code.
 
 ## Development server
 
