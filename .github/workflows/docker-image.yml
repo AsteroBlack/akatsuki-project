@@ -23,5 +23,7 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/akastuki-app:120724 .
-        docker push ${{ secrets.DOCKER_USERNAME }}/akastuki-app:120724
+        DATE=$(date +'%Y%m%d')
+        IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/nom_de_votre_image:$DATE
+        docker build -t $IMAGE_NAME .
+        docker push $IMAGE_NAME
