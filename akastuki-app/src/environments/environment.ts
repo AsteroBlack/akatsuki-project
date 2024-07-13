@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: location.origin + '/api/akatsuki-api/',
+  baseUrl: "http://akatsuki-api:8080/api/akatsuki-api/",
   baseUrlRessources: '',
   baseUrlRadius: '',
   baseUrlIpManager: '',
