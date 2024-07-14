@@ -21,6 +21,8 @@ WORKDIR /usr/local/tomcat/webapps/
 
 COPY --from=build app/target/*war ./app.war
 
+EXPOSE 8080
+
 CMD ["catalina.sh", "run"]
 
 
