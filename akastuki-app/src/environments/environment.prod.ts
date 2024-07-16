@@ -5,7 +5,7 @@ export const environment = {
   baseUrlRadius: '', 
   baseUrlEndPRadius: '',
 
-  baseUrl: location.origin + '/api/akatsuki-api/',,
+  baseUrl: location.origin + '/api/akatsuki-api/',
   baseUrlRessources: '',
   baseUrlIpManager: '', 
   baseUrlDashboard: '', 
