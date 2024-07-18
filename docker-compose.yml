@@ -1,0 +1,93 @@
+version: '3.7'
+
+services:
+
+# App service
+
+  akatsuki-app:
+    #build: .
+    image: tigolifrederic283/akatsuki-app:1.0.3
+    environment:
+      - APP_INSTANCE=${INSTANCE_NUM}
+    container_name: akatsuki-app-${INSTANCE_NUM}
+    networks:
+      - akatsuki-network
+    volumes:
+      - ./akatsuki_app_data/html:/var/www/html/
+      - ./akatsuki_app_data/conf:/etc/httpd/conf
+      - ./akatsuki_app_data/conf.d:/etc/httpd/conf.d
+
+# Api service
+
+   akatsuki-api:
+     #build: .
+     image: tigolifrederic283/akatsuki-api:1.0.2
+     environment:
+       - APP_INSTANCE=${INSTANCE_NUM}
+     container_name: akatsuki-app-${INSTANCE_NUM}
+     networks:
+       - akatsuki-network
+
+#db-galera servives
+
+   db-node1:
+    image: mariadb:10.6
+    container_name: akatsuki-db-node1
+    environment:
+      - MARIADB_ROOT_PASSWORD=P@ssword2024
+    volumes:
+      - ./galera_node1.cnf:/etc/mysql/conf.d/galera.cnf
+      - ./db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
+    networks:
+      - akatsuki-network
+    command: ["mysqld", "--wsrep-new-cluster"]
+
+  db-node2:
+    image: mariadb:10.6
+    container_name: akatsuki-db-node2
+    environment:
+      - MARIADB_ROOT_PASSWORD=P@ssword2024
+    volumes:
+      - ./galera_node2.cnf:/etc/mysql/conf.d/galera.cnf
+      - ./db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
+    networks:
+      - akatsuki-network
+
+  db-node3:
+    image: mariadb:10.6
+    container_name: akatsuki-db-node3
+    environment:
+      - MARIADB_ROOT_PASSWORD=P@ssword2024
+    volumes:
+      - ./galera_node3.cnf:/etc/mysql/conf.d/galera.cnf
+      - ./db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
+    networks:
+      - akatsuki-network
+
+#haproxy service
+
+   haproxy-front:
+     image: haproxy:3.0.3-alpine3.20
+     depends_on:
+       - akatsuki-app
+     container_name: akatsuki-ha-1
+     volumes:
+       - ./ha-conf/haFront.cfg:/usr/local/etc/haproxy/haproxy.cfg
+     networks:
+       - akatsuki-network
+     ports:
+       - 8000:8000
+   haproxy-back:
+     image: haproxy:3.0.3-alpine3.20
+     container_name: akatsuki-ha-2
+     depends_on:
+       - akatsuki-api
+     volumes:
+       - ./ha-conf/haBack.cfg:/usr/local/etc/haproxy/haproxy.cfg
+     networks:
+       - akatsuki-network
+     ports:
+       - 8001:8001
+networks:
+  akatsuki-network:
+    driver: bridge
