@@ -9,9 +9,8 @@ services:
     networks:
       - akatsuki-network
     volumes:
-      - ./akatsuki_app_data/html:/var/www/html/
-      - ./akatsuki_app_data/conf:/etc/httpd/conf
-      - ./akatsuki_app_data/conf.d:/etc/httpd/conf.d
+      - ./akastuki-app/httpd.conf:/etc/httpd/conf/httpd.conf
+      - ./akastuki-app/akatsuki.conf/:/etc/httpd/conf.d/akatsuki.conf
 
   # Api service
   akatsuki-api:
@@ -28,8 +27,8 @@ services:
     environment:
       - MARIADB_ROOT_PASSWORD=P@ssword2024
     volumes:
-      - ./galera_node1.cnf:/etc/mysql/conf.d/galera.cnf
-      - ./db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
+      - ./db/galera_node1.cnf:/etc/mysql/conf.d/galera.cnf
+      - ./db/db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
     networks:
       - akatsuki-network
     command: ["mysqld", "--wsrep-new-cluster"]
@@ -40,8 +39,8 @@ services:
     environment:
       - MARIADB_ROOT_PASSWORD=P@ssword2024
     volumes:
-      - ./galera_node2.cnf:/etc/mysql/conf.d/galera.cnf
-      - ./db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
+      - ./db/galera_node2.cnf:/etc/mysql/conf.d/galera.cnf
+      - ./db/db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
     networks:
       - akatsuki-network
 
@@ -51,8 +50,8 @@ services:
     environment:
       - MARIADB_ROOT_PASSWORD=P@ssword2024
     volumes:
-      - ./galera_node3.cnf:/etc/mysql/conf.d/galera.cnf
-      - ./db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
+      - ./db/galera_node3.cnf:/etc/mysql/conf.d/galera.cnf
+      - ./db/db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
     networks:
       - akatsuki-network
 
