@@ -1,0 +1,4 @@
+FROM haproxy:3.0.3-alpine3.20
+COPY haFront.cfg /usr/local/etc/haproxy/haproxy.cfg
+EXPOSE 8000
+
