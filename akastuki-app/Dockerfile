@@ -21,6 +21,6 @@ COPY --from=angular /app/dist ./akatsuki.com/
 COPY --from=angular /app/httpd.conf /etc/httpd/conf
 COPY --from=angular /app/akatsuki.conf /etc/httpd/conf.d
 
-VOLUME ["/var/www/html/", "/etc/httpd/conf", "/etc/httpd/conf.d"]
+#VOLUME ["/var/www/html/", "/etc/httpd/conf", "/etc/httpd/conf.d"]
 
 ENTRYPOINT ["/usr/sbin/httpd","-D","FOREGROUND"]
