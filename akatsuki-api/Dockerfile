@@ -22,7 +22,6 @@ WORKDIR /usr/local/tomcat/webapps/
 
 COPY --from=build /api/target/*.war ./akatsuki-api.war
 
-EXPOSE 8080
 
 CMD ["catalina.sh", "run"]
 
