@@ -1,51 +1,22 @@
 version: '3.7'
 
 services:
-  # App services
-  akatsuki-app-1:
+  # App service
+  akatsuki-app:
     image: tigolifrederic283/akatsuki-app:1.0.3
     environment:
       - APP_INSTANCE=1
-    container_name: akatsuki-app-1
     networks:
       - akatsuki-network
     volumes:
-      - ./akastuki-app/httpd.conf:/etc/httpd/httpd.conf
-      - ./akastuki-app/akatsuki.conf:/etc/httpd/conf.d/akatsuki.conf
+      - ./akastuki-app/httpd.conf:/etc/httpd/conf/httpd.conf
+      - ./akastuki-app/akatsuki.conf/:/etc/httpd/conf.d/akatsuki.conf
 
-  akatsuki-app-2:
-    image: tigolifrederic283/akatsuki-app:1.0.3
-    environment:
-      - APP_INSTANCE=2
-    container_name: akatsuki-app-2
-    networks:
-      - akatsuki-network
-    volumes:
-      - ./akastuki-app/httpd.conf:/etc/httpd/httpd.conf
-      - ./akastuki-app/akatsuki.conf:/etc/httpd/conf.d/akatsuki.conf
-
-  # Api services
-  akatsuki-api-1:
+  # Api service
+  akatsuki-api:
     image: tigolifrederic283/akatsuki-api:1.0.2
     environment:
       - APP_INSTANCE=1
-    container_name: akatsuki-api-1
-    networks:
-      - akatsuki-network
-
-  akatsuki-api-2:
-    image: tigolifrederic283/akatsuki-api:1.0.2
-    environment:
-      - APP_INSTANCE=2
-    container_name: akatsuki-api-2
-    networks:
-      - akatsuki-network
-
-  akatsuki-api-3:
-    image: tigolifrederic283/akatsuki-api:1.0.2
-    environment:
-      - APP_INSTANCE=3
-    container_name: akatsuki-api-3
     networks:
       - akatsuki-network
 
@@ -55,12 +26,12 @@ services:
     container_name: akatsuki-db-node1
     environment:
       - MARIADB_ROOT_PASSWORD=P@ssword2024
-     volumes:
-      #      - ./db/galera_node1.cnf:/etc/mysql/conf.d/galera.cnf
-       - ./db/db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
+    volumes:
+      - ./db/galera_node1.cnf:/etc/mysql/conf.d/galera.cnf
+      - ./db/db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
     networks:
       - akatsuki-network
-        #    command: ["mysqld", "--wsrep-new-cluster"]
+    command: ["mysqld", "--wsrep-new-cluster"]
 
   db-node2:
     image: mariadb:10.6
@@ -68,7 +39,7 @@ services:
     environment:
       - MARIADB_ROOT_PASSWORD=P@ssword2024
     volumes:
-      # - ./db/galera_node2.cnf:/etc/mysql/conf.d/galera.cnf
+      - ./db/galera_node2.cnf:/etc/mysql/conf.d/galera.cnf
       - ./db/db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
     networks:
       - akatsuki-network
@@ -79,7 +50,7 @@ services:
     environment:
       - MARIADB_ROOT_PASSWORD=P@ssword2024
     volumes:
-      # - ./db/galera_node3.cnf:/etc/mysql/conf.d/galera.cnf
+      - ./db/galera_node3.cnf:/etc/mysql/conf.d/galera.cnf
       - ./db/db_akatsuki.sql:/docker-entrypoint-initdb.d/db_akatsuki.sql
     networks:
       - akatsuki-network
@@ -88,8 +59,7 @@ services:
   haproxy-front:
     image: haproxy:3.0.3-alpine3.20
     depends_on:
-      - akatsuki-app-1
-      - akatsuki-app-2
+      - akatsuki-app
     container_name: akatsuki-ha-1
     volumes:
       - ./ha-conf/haFront.cfg:/usr/local/etc/haproxy/haproxy.cfg
@@ -102,12 +72,7 @@ services:
     image: haproxy:3.0.3-alpine3.20
     container_name: akatsuki-ha-2
     depends_on:
-      - akatsuki-api-1
-      - akatsuki-api-2
-      - akatsuki-api-3
-      - db-node1
-      - db-node2
-      - db-node3
+      - akatsuki-api
     volumes:
       - ./ha-conf/haBack.cfg:/usr/local/etc/haproxy/haproxy.cfg
     networks:
