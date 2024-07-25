@@ -114,7 +114,7 @@ services:
       - 8000:8000
 
   haproxy-back:
-    image: haproxy:3.0.3-alpine3.20
+    image: haproxy:3.1-dev4
     container_name: akatsuki-ha-2
     depends_on:
       - akatsuki-api-1
